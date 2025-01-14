@@ -66,6 +66,7 @@ export default function Flashcards() {
             variant="solid"
             size="lg"
             _hover={{ bg: "blue.900", transform: "scale(1.05)" }}
+            onClick={() => navigate("/my-flashcards")}
           >
             View
           </Button>

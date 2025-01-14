@@ -11,12 +11,13 @@ import {
   HStack,
   IconButton,
   Divider,
+  Flex,
 } from "@chakra-ui/react";
-import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon, DragHandleIcon } from "@chakra-ui/icons";
 
 export default function CreateFlashcards() {
   return (
-    <SimpleGrid spacing={8} maxW="800px" mx="auto" p={6}>
+    <SimpleGrid spacing={8} maxW="1200px" mx="auto" p={6}>
       {/* Heading */}
       <Heading
         as="h2"
@@ -90,25 +91,36 @@ export default function CreateFlashcards() {
               <Heading fontSize="lg" color="blue.600">
                 Flashcard
               </Heading>
-              <IconButton
-                aria-label="Remove Flashcard"
-                icon={<DeleteIcon />}
-                size="sm"
-                colorScheme="teal"
-              />
+              <Flex>
+                <IconButton
+                  aria-label="Drag Flashcard"
+                  icon={<DragHandleIcon />}
+                  size="sm"
+                  colorScheme="teal"
+                  mr={2}
+                />
+                <IconButton
+                  aria-label="Remove Flashcard"
+                  icon={<DeleteIcon />}
+                  size="sm"
+                  colorScheme="pink"
+                />
+              </Flex>
             </HStack>
-            <FormControl mb={3}>
-              <FormLabel fontSize="sm" fontWeight="bold" color="blue.900">
-                Definition
-              </FormLabel>
-              <Input type="text" placeholder="Enter the definition" />
-            </FormControl>
-            <FormControl>
-              <FormLabel fontSize="sm" fontWeight="bold" color="blue.900">
-                Answer
-              </FormLabel>
-              <Input type="text" placeholder="Enter the answer" />
-            </FormControl>
+            <HStack>
+              <FormControl>
+                <FormLabel fontSize="sm" fontWeight="bold" color="blue.900">
+                  Definition
+                </FormLabel>
+                <Input type="text" placeholder="Enter the definition" />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize="sm" fontWeight="bold" color="blue.900">
+                  Answer
+                </FormLabel>
+                <Input type="text" placeholder="Enter the answer" />
+              </FormControl>
+            </HStack>
           </Box>
         </VStack>
 
