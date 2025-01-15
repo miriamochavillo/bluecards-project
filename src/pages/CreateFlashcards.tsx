@@ -18,15 +18,17 @@ import {
 } from "@chakra-ui/react";
 import { AddIcon, DeleteIcon, DragHandleIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 export default function CreateFlashcards() {
-  const navigate = useNavigate();
+  const flashcardSetId = uuidv4();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [flashcards, setFlashcards] = useState([
     { definition: "", answer: "" },
   ]);
+  const navigate = useNavigate();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const toast = useToast();
 
@@ -54,6 +56,28 @@ export default function CreateFlashcards() {
     setFlashcards(flashcards.filter((_, i) => i !== index));
   };
 
+  // const saveFlashcardSet = () => {
+  //   setIsSubmitted(true);
+  //   if (
+  //     !title.trim() ||
+  //     flashcards.some((f) => !f.definition.trim() || !f.answer.trim())
+  //   ) {
+  //     return;
+  //   }
+
+  //   // Logic to save the flashcard set
+  //   console.log({ id: flashcardSetId, title, description, flashcards });
+  //   toast({
+  //     title: "Success",
+  //     description: `"${title}" card set was saved successfully.`,
+  //     status: "success",
+  //     duration: 5000,
+  //     isClosable: true,
+  //     position: "top",
+  //   });
+  //   navigate("/my-flashcards");
+  // };
+
   const saveFlashcardSet = () => {
     setIsSubmitted(true);
     if (
@@ -62,16 +86,35 @@ export default function CreateFlashcards() {
     ) {
       return;
     }
-    // Logic to save the flashcard set
-    console.log({ title, description, flashcards });
+
+    const newFlashcardSet = {
+      id: flashcardSetId,
+      title,
+      description,
+      flashcards,
+      lastUpdated: new Date().toLocaleString(),
+    };
+
+    // Get existing flashcard sets from localStorage
+    const existingSets = JSON.parse(
+      localStorage.getItem("flashcardSets") || "[]"
+    );
+
+    // Save the new set
+    localStorage.setItem(
+      "flashcardSets",
+      JSON.stringify([...existingSets, newFlashcardSet])
+    );
+
     toast({
       title: "Success",
-      description: "Flashcard set saved successfully.",
+      description: `"${title}" card set was saved successfully.`,
       status: "success",
       duration: 5000,
       isClosable: true,
       position: "top",
     });
+
     navigate("/my-flashcards");
   };
 
