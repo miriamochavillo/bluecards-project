@@ -100,7 +100,11 @@ export default function Dashboard() {
                   </Heading>
                   <Spacer />
                   <HStack spacing={2}>
-                    <Button size="sm" colorScheme="blue">
+                    <Button
+                      size="sm"
+                      colorScheme="blue"
+                      onClick={() => navigate("/flashcard-set")}
+                    >
                       View
                     </Button>
                     <IconButton
