@@ -13,15 +13,22 @@ import {
   IconButton,
   Divider,
   Flex,
+  useToast,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { AddIcon, DeleteIcon, DragHandleIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateFlashcards() {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [flashcards, setFlashcards] = useState([
     { definition: "", answer: "" },
   ]);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const toast = useToast();
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(e.target.value);
@@ -48,16 +55,24 @@ export default function CreateFlashcards() {
   };
 
   const saveFlashcardSet = () => {
-    if (!title.trim() || !description.trim()) {
-      alert("Title and description cannot be empty.");
-      return;
-    }
-    if (flashcards.some((f) => !f.definition.trim() || !f.answer.trim())) {
-      alert("All flashcards must have a definition and an answer.");
+    setIsSubmitted(true);
+    if (
+      !title.trim() ||
+      flashcards.some((f) => !f.definition.trim() || !f.answer.trim())
+    ) {
       return;
     }
     // Logic to save the flashcard set
     console.log({ title, description, flashcards });
+    toast({
+      title: "Success",
+      description: "Flashcard set saved successfully.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+    navigate("/my-flashcards");
   };
 
   return (
@@ -85,7 +100,12 @@ export default function CreateFlashcards() {
             borderColor="gray.200"
             w="100%"
           >
-            <FormControl mb={4} bg="white">
+            <FormControl
+              mb={4}
+              bg="white"
+              isRequired
+              isInvalid={isSubmitted && !title.trim()}
+            >
               <FormLabel fontWeight="bold" fontSize="lg" color="blue.600">
                 Title
               </FormLabel>
@@ -97,6 +117,7 @@ export default function CreateFlashcards() {
                 value={title}
                 onChange={handleTitleChange}
               />
+              <FormErrorMessage>Title is required.</FormErrorMessage>
             </FormControl>
           </Box>
           <Box
@@ -153,7 +174,10 @@ export default function CreateFlashcards() {
                 </Flex>
               </HStack>
               <HStack>
-                <FormControl>
+                <FormControl
+                  isRequired
+                  isInvalid={isSubmitted && !flashcard.definition.trim()}
+                >
                   <FormLabel fontSize="sm" fontWeight="bold" color="blue.900">
                     Definition
                   </FormLabel>
@@ -165,8 +189,12 @@ export default function CreateFlashcards() {
                       handleFlashcardChange(index, "definition", e.target.value)
                     }
                   />
+                  <FormErrorMessage>Definition is required.</FormErrorMessage>
                 </FormControl>
-                <FormControl>
+                <FormControl
+                  isRequired
+                  isInvalid={isSubmitted && !flashcard.answer.trim()}
+                >
                   <FormLabel fontSize="sm" fontWeight="bold" color="blue.900">
                     Answer
                   </FormLabel>
@@ -178,6 +206,7 @@ export default function CreateFlashcards() {
                       handleFlashcardChange(index, "answer", e.target.value)
                     }
                   />
+                  <FormErrorMessage>Answer is required.</FormErrorMessage>
                 </FormControl>
               </HStack>
             </Box>
