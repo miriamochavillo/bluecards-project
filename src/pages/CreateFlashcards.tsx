@@ -21,8 +21,10 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 export default function CreateFlashcards() {
+  // Generate a unique ID for the flashcard set
   const flashcardSetId = uuidv4();
 
+  // State variables for title, description, flashcards, submission status, and toast notifications
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [flashcards, setFlashcards] = useState([
@@ -32,11 +34,13 @@ export default function CreateFlashcards() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const toast = useToast();
 
+  // Handlers for input changes
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setTitle(e.target.value);
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setDescription(e.target.value);
 
+  // Update flashcard content based on index and field
   const handleFlashcardChange = (
     index: number,
     field: keyof (typeof flashcards)[0],
@@ -48,36 +52,17 @@ export default function CreateFlashcards() {
     setFlashcards(newFlashcards);
   };
 
+  // Add a new flashcard to the list
   const addFlashcard = () => {
     setFlashcards([...flashcards, { definition: "", answer: "" }]);
   };
 
+  // Remove a flashcard from the list by index
   const removeFlashcard = (index: number) => {
     setFlashcards(flashcards.filter((_, i) => i !== index));
   };
 
-  // const saveFlashcardSet = () => {
-  //   setIsSubmitted(true);
-  //   if (
-  //     !title.trim() ||
-  //     flashcards.some((f) => !f.definition.trim() || !f.answer.trim())
-  //   ) {
-  //     return;
-  //   }
-
-  //   // Logic to save the flashcard set
-  //   console.log({ id: flashcardSetId, title, description, flashcards });
-  //   toast({
-  //     title: "Success",
-  //     description: `"${title}" card set was saved successfully.`,
-  //     status: "success",
-  //     duration: 5000,
-  //     isClosable: true,
-  //     position: "top",
-  //   });
-  //   navigate("/my-flashcards");
-  // };
-
+  // Save the flashcard set to localStorage and navigate to another page
   const saveFlashcardSet = () => {
     setIsSubmitted(true);
     if (
@@ -106,6 +91,7 @@ export default function CreateFlashcards() {
       JSON.stringify([...existingSets, newFlashcardSet])
     );
 
+    // Show success toast notification
     toast({
       title: "Success",
       description: `"${title}" card set was saved successfully.`,
@@ -115,6 +101,7 @@ export default function CreateFlashcards() {
       position: "top",
     });
 
+    // Navigate to the "my-flashcards" page
     navigate("/my-flashcards");
   };
 

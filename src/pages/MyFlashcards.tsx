@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
   Button,
   Card,
@@ -14,8 +14,29 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Spacer,
   Text,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+  VStack,
+  Divider,
+  Box,
+  Flex,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverBody,
+  useToast,
 } from "@chakra-ui/react";
 import { SimpleGrid } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
@@ -26,11 +47,15 @@ interface FlashcardSet {
   title: string;
   description: string;
   lastUpdated: string;
+  flashcards: { definition: string; answer: string }[];
 }
 
 export default function MyFlashcards() {
+  const toast = useToast();
   const navigate = useNavigate();
   const [flashcardSets, setFlashcardSets] = useState<FlashcardSet[]>([]);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [currentSet, setCurrentSet] = useState<FlashcardSet | null>(null);
 
   useEffect(() => {
     // Fetch flashcard sets from localStorage
@@ -42,6 +67,82 @@ export default function MyFlashcards() {
     const updatedSets = flashcardSets.filter((set) => set.id !== id);
     setFlashcardSets(updatedSets);
     localStorage.setItem("flashcardSets", JSON.stringify(updatedSets));
+    toast({
+      title: "Flashcard set deleted.",
+      description: "The flashcard set has been successfully removed.",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+  };
+
+  const editFlashcardSet = (id: string, updatedSet: Partial<FlashcardSet>) => {
+    const updatedSets = flashcardSets.map((set) =>
+      set.id === id ? { ...set, ...updatedSet } : set
+    );
+    setFlashcardSets(updatedSets);
+    localStorage.setItem("flashcardSets", JSON.stringify(updatedSets));
+    toast({
+      title: "Flashcard set updated.",
+      description: "The flashcard set has been successfully updated.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+  };
+
+  const openEditModal = (set: FlashcardSet) => {
+    setCurrentSet(set);
+    setIsEditOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setCurrentSet(null);
+    setIsEditOpen(false);
+  };
+
+  const handleEditChange = (field: keyof FlashcardSet, value: string) => {
+    if (currentSet) {
+      setCurrentSet({ ...currentSet, [field]: value });
+    }
+  };
+
+  const handleFlashcardChange = (
+    index: number,
+    field: "definition" | "answer",
+    value: string
+  ) => {
+    if (currentSet) {
+      const newFlashcards = [...currentSet.flashcards];
+      newFlashcards[index][field] = value;
+      setCurrentSet({ ...currentSet, flashcards: newFlashcards });
+    }
+  };
+
+  const addFlashcard = () => {
+    if (currentSet) {
+      const newFlashcards = [
+        ...currentSet.flashcards,
+        { definition: "", answer: "" },
+      ];
+      setCurrentSet({ ...currentSet, flashcards: newFlashcards });
+    }
+  };
+
+  const removeFlashcard = (index: number) => {
+    if (currentSet) {
+      const newFlashcards = currentSet.flashcards.filter((_, i) => i !== index);
+      setCurrentSet({ ...currentSet, flashcards: newFlashcards });
+    }
+  };
+
+  const saveEditedSet = () => {
+    if (currentSet) {
+      editFlashcardSet(currentSet.id, currentSet);
+      closeEditModal();
+    }
   };
 
   return (
@@ -51,15 +152,23 @@ export default function MyFlashcards() {
           My Flashcards
         </Heading>
         <Spacer />
-        <IconButton
-          aria-label="Create"
-          icon={<AddIcon />}
-          colorScheme="blue"
-          variant="solid"
-          size="lg"
-          _hover={{ bg: "blue.900", transform: "scale(1.05)" }}
-          onClick={() => navigate("/create-flashcards")}
-        />
+        <Popover trigger="hover">
+          <PopoverTrigger>
+            <IconButton
+              aria-label="Create"
+              icon={<AddIcon />}
+              colorScheme="blue"
+              variant="solid"
+              size="lg"
+              _hover={{ bg: "blue.900", transform: "scale(1.05)" }}
+              onClick={() => navigate("/create-flashcards")}
+            />
+          </PopoverTrigger>
+          <PopoverContent width="auto" alignContent="center">
+            <PopoverArrow />
+            <PopoverBody fontSize="sm">Add New Flashcards</PopoverBody>
+          </PopoverContent>
+        </Popover>
       </HStack>
 
       {flashcardSets.length === 0 ? (
@@ -89,7 +198,7 @@ export default function MyFlashcards() {
                     <Button
                       size="sm"
                       colorScheme="blue"
-                      onClick={() => navigate(`/flashcard-set/${set.id}`)}
+                      onClick={() => navigate(`/my-flashcards/${set.id}`)}
                     >
                       View
                     </Button>
@@ -102,7 +211,9 @@ export default function MyFlashcards() {
                         aria-label="Options"
                       />
                       <MenuList>
-                        <MenuItem>Edit</MenuItem>
+                        <MenuItem onClick={() => openEditModal(set)}>
+                          Edit
+                        </MenuItem>
                         <MenuDivider />
                         <MenuItem onClick={() => deleteFlashcardSet(set.id)}>
                           Delete
@@ -124,6 +235,129 @@ export default function MyFlashcards() {
               </CardFooter>
             </Card>
           ))}
+          <Modal
+            isOpen={isEditOpen}
+            onClose={closeEditModal}
+            isCentered
+            size="4xl"
+          >
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Edit Flashcard Set</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                {currentSet && (
+                  <VStack spacing={4}>
+                    <FormControl isRequired>
+                      <FormLabel>Title</FormLabel>
+                      <Input
+                        value={currentSet.title}
+                        onChange={(e) =>
+                          handleEditChange("title", e.target.value)
+                        }
+                      />
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel>Description</FormLabel>
+                      <Textarea
+                        value={currentSet.description}
+                        onChange={(e) =>
+                          handleEditChange("description", e.target.value)
+                        }
+                      />
+                    </FormControl>
+                    <Divider colorScheme="blue" />
+                    {currentSet.flashcards.map((flashcard, index) => (
+                      <Box
+                        key={index}
+                        bg="white"
+                        p={4}
+                        borderRadius="md"
+                        border="1px solid"
+                        borderColor="gray.200"
+                        w="100%"
+                      >
+                        <HStack justifyContent="space-between" mb={2}>
+                          <Heading fontSize="lg" color="blue.600">
+                            Flashcard {index + 1}
+                          </Heading>
+                          <Flex>
+                            <IconButton
+                              aria-label="Remove Flashcard"
+                              icon={<DeleteIcon />}
+                              size="sm"
+                              colorScheme="pink"
+                              onClick={() => removeFlashcard(index)}
+                            />
+                          </Flex>
+                        </HStack>
+                        <HStack>
+                          <FormControl isRequired>
+                            <FormLabel
+                              fontSize="sm"
+                              fontWeight="bold"
+                              color="blue.900"
+                            >
+                              Definition
+                            </FormLabel>
+                            <Input
+                              type="text"
+                              placeholder="Enter the definition"
+                              value={flashcard.definition}
+                              onChange={(e) =>
+                                handleFlashcardChange(
+                                  index,
+                                  "definition",
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </FormControl>
+                          <FormControl isRequired>
+                            <FormLabel
+                              fontSize="sm"
+                              fontWeight="bold"
+                              color="blue.900"
+                            >
+                              Answer
+                            </FormLabel>
+                            <Input
+                              type="text"
+                              placeholder="Enter the answer"
+                              value={flashcard.answer}
+                              onChange={(e) =>
+                                handleFlashcardChange(
+                                  index,
+                                  "answer",
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </FormControl>
+                        </HStack>
+                      </Box>
+                    ))}
+                    <Button
+                      mt={4}
+                      leftIcon={<AddIcon />}
+                      colorScheme="blue"
+                      onClick={addFlashcard}
+                    >
+                      Add Flashcard
+                    </Button>
+                  </VStack>
+                )}
+              </ModalBody>
+              <ModalFooter>
+                <Button colorScheme="blue" onClick={saveEditedSet}>
+                  Save
+                </Button>
+                <Button onClick={closeEditModal} ml={3}>
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
         </SimpleGrid>
       )}
     </SimpleGrid>
