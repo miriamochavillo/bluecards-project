@@ -11,7 +11,7 @@ import Dashboard from "../pages/Dashboard";
 import Profile from "../pages/Profile";
 import Flashcards from "../pages/Flashcards";
 import CreateFlashcards from "../pages/CreateFlashcards";
-import MyFlashcards from "../pages/MyFlashcards";
+import MyFlashcards from "../pages/MyFlashcard/MyFlashcards";
 import FlashcardSet from "../pages/FlashcardSet";
 
 // router and routes

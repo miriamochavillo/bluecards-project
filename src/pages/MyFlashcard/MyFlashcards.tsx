@@ -160,7 +160,7 @@ export default function MyFlashcards() {
               colorScheme="blue"
               variant="solid"
               size="lg"
-              _hover={{ bg: "blue.900", transform: "scale(1.05)" }}
+              _hover={{ bg: "blue.800", transform: "scale(1.05)" }}
               onClick={() => navigate("/create-flashcards")}
             />
           </PopoverTrigger>
@@ -180,13 +180,17 @@ export default function MyFlashcards() {
           {flashcardSets.map((set) => (
             <Card
               key={set.id}
-              bg="blue.50"
+              bg="white"
               border="2px solid"
               borderColor="blue.200"
               borderRadius="lg"
               boxShadow="lg"
               transition="all 0.3s ease-in-out"
-              _hover={{ transform: "scale(1.05)", boxShadow: "2xl" }}
+              _hover={{
+                transform: "scale(1.05)",
+                boxShadow: "2xl",
+                bg: "blue.100",
+              }}
             >
               <CardHeader>
                 <HStack spacing={3}>
@@ -296,7 +300,7 @@ export default function MyFlashcards() {
                             <FormLabel
                               fontSize="sm"
                               fontWeight="bold"
-                              color="blue.900"
+                              color="blue.800"
                             >
                               Definition
                             </FormLabel>
@@ -317,7 +321,7 @@ export default function MyFlashcards() {
                             <FormLabel
                               fontSize="sm"
                               fontWeight="bold"
-                              color="blue.900"
+                              color="blue.800"
                             >
                               Answer
                             </FormLabel>
