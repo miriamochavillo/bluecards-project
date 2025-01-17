@@ -7,7 +7,7 @@ import {
 
 // layouts and pages
 import RootLayout from "../shared/ui/RootLayout";
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../pages/Profile";
 import Flashcards from "../pages/Flashcards";
 import CreateFlashcards from "../pages/CreateFlashcards";
