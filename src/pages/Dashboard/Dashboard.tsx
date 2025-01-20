@@ -88,7 +88,13 @@ export default function Dashboard() {
                     {popularFlashcard.title}
                   </Heading>
                   <Spacer />
-                  <Button size="sm" colorScheme="blue">
+                  <Button
+                    size="sm"
+                    colorScheme="blue"
+                    onClick={() =>
+                      navigate(`/popular-flashcards/${popularFlashcard.id}`)
+                    }
+                  >
                     View
                   </Button>
                 </HStack>

@@ -75,7 +75,7 @@ export default function MyFlashcards() {
 
   return (
     <>
-      <SimpleGrid spacing={10} maxW="1200px" mx="auto" p={6}>
+      <SimpleGrid spacing={8} maxW="1200px" mx="auto" p={6}>
         <HStack
           border="2px solid"
           borderColor="blue.200"

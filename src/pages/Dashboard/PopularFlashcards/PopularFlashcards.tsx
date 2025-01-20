@@ -11,6 +11,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { flashcardContent } from "./PopularFlashcardsContent";
+import { useNavigate } from "react-router-dom";
 
 interface PopularFlashcard {
   id: number;
@@ -18,12 +19,14 @@ interface PopularFlashcard {
   description: string;
   lastUpdated: string;
   views: number;
+  flashcards: { definition: string; answer: string }[];
 }
 
 export default function PopularFlashcards() {
   const sortedFlashcards = flashcardContent.sort(
     (a: PopularFlashcard, b: PopularFlashcard) => b.views - a.views
   );
+  const navigate = useNavigate();
   return (
     <SimpleGrid spacing={10} maxW="1200px" mx="auto" p={6}>
       <HStack border="2px solid" borderColor="blue.200" p={4} borderRadius="lg">
@@ -50,7 +53,13 @@ export default function PopularFlashcards() {
                   {popularFlashcard.title}
                 </Heading>
                 <Spacer />
-                <Button size="sm" colorScheme="blue">
+                <Button
+                  size="sm"
+                  colorScheme="blue"
+                  onClick={() =>
+                    navigate(`/popular-flashcards/${popularFlashcard.id}`)
+                  }
+                >
                   View
                 </Button>
               </HStack>
