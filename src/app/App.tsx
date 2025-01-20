@@ -9,10 +9,10 @@ import {
 import RootLayout from "../shared/ui/RootLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../pages/Profile";
-import Flashcards from "../pages/Flashcards";
+import FlashcardMenu from "../pages/FlashcardMenu";
 import CreateFlashcards from "../pages/CreateFlashcards";
 import MyFlashcards from "../pages/MyFlashcard/MyFlashcards";
-import FlashcardSet from "../pages/FlashcardSet";
+import FlashcardSet from "../pages/FlashcardSet/FlashcardSet";
 
 // router and routes
 const router = createBrowserRouter(
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Dashboard />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/flashcards" element={<Flashcards />} />
+      <Route path="/flashcards" element={<FlashcardMenu />} />
       <Route path="/create-flashcards" element={<CreateFlashcards />} />
       <Route path="/my-flashcards" element={<MyFlashcards />} />
       <Route path="/flashcard-set" element={<FlashcardSet />} />
