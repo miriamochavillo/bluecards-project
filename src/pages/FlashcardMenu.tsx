@@ -13,7 +13,7 @@ import {
 import { AddIcon, ViewIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 
-export default function Flashcards() {
+export default function FlashcardMenu() {
   const navigate = useNavigate();
 
   return (
