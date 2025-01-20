@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { AddIcon } from "@chakra-ui/icons";
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -27,6 +26,7 @@ import { SimpleGrid } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { SlOptionsVertical } from "react-icons/sl";
 import EditFlashcardSet from "./EditFlashcardSet";
+import { FaEye } from "react-icons/fa";
 
 interface FlashcardSet {
   id: string;
@@ -114,32 +114,28 @@ export default function MyFlashcards() {
             {flashcardSets.map((set) => (
               <Card
                 key={set.id}
-                bg="white"
-                border="2px solid"
-                borderColor="blue.200"
+                bg="blue.50"
                 borderRadius="lg"
                 boxShadow="lg"
                 transition="all 0.3s ease-in-out"
-                _hover={{
-                  transform: "scale(1.05)",
-                  boxShadow: "2xl",
-                  bg: "blue.100",
-                }}
+                _hover={{ transform: "scale(1.05)", boxShadow: "2xl" }}
               >
-                <CardHeader>
+                <CardHeader bg="blue.500" borderTopRadius="lg">
                   <HStack spacing={3}>
-                    <Heading fontSize="lg" color="blue.700">
+                    <Heading fontSize="lg" color="white">
                       {set.title}
                     </Heading>
                     <Spacer />
                     <HStack spacing={2}>
-                      <Button
-                        size="sm"
-                        colorScheme="blue"
+                      <IconButton
+                        as={FaEye}
+                        size="xs"
+                        color="blue.600"
+                        bg="transparent"
+                        aria-label="View"
                         onClick={() => navigate(`/my-flashcards/${set.id}`)}
-                      >
-                        View
-                      </Button>
+                        _hover={{ color: "white", bg: "transparent" }}
+                      />
                       <Menu placement="bottom-end">
                         <MenuButton
                           as={IconButton}
@@ -147,6 +143,7 @@ export default function MyFlashcards() {
                           icon={<SlOptionsVertical />}
                           colorScheme="teal"
                           aria-label="Options"
+                          bg="transparent"
                         />
                         <MenuList>
                           <MenuItem onClick={() => openEditModal(set)}>

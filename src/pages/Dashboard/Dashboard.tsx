@@ -11,10 +11,12 @@ import {
   CardHeader,
   HStack,
   Divider,
+  IconButton,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { flashcardContent } from "./PopularFlashcards/PopularFlashcardsContent";
+import { FaEye } from "react-icons/fa";
 
 interface MyFlashcardSet {
   id: string;
@@ -75,28 +77,28 @@ export default function Dashboard() {
             <Card
               key={popularFlashcard.id}
               bg="blue.50"
-              border="2px solid"
-              borderColor="blue.200"
               borderRadius="lg"
               boxShadow="lg"
               transition="all 0.3s ease-in-out"
               _hover={{ transform: "scale(1.05)", boxShadow: "2xl" }}
             >
-              <CardHeader>
+              <CardHeader bg="blue.700" borderTopRadius="lg">
                 <HStack spacing={3}>
-                  <Heading fontSize="lg" color="blue.700">
+                  <Heading fontSize="lg" color="white">
                     {popularFlashcard.title}
                   </Heading>
                   <Spacer />
-                  <Button
-                    size="sm"
-                    colorScheme="blue"
+                  <IconButton
+                    as={FaEye}
+                    size="xs"
+                    color="blue.600"
+                    bg="transparent"
+                    aria-label="View"
                     onClick={() =>
                       navigate(`/popular-flashcards/${popularFlashcard.id}`)
                     }
-                  >
-                    View
-                  </Button>
+                    _hover={{ color: "white", bg: "transparent" }}
+                  />
                 </HStack>
               </CardHeader>
               <CardBody>
@@ -105,21 +107,20 @@ export default function Dashboard() {
                 </Text>
               </CardBody>
               <CardFooter>
-                <HStack>
-                  <Text fontSize="xs" color="gray.500">
-                    Last updated: {popularFlashcard.lastUpdated}
-                  </Text>
-                  <Text fontSize="xs" color="gray.500">
-                    Views: {popularFlashcard.views}
-                  </Text>
-                </HStack>
+                <Text fontSize="xs" color="gray.500">
+                  Last updated: {popularFlashcard.lastUpdated}
+                </Text>
+                <Spacer />
+                <Text fontSize="xs" color="gray.500">
+                  Views: {popularFlashcard.views}
+                </Text>
               </CardFooter>
             </Card>
           ))}
         </SimpleGrid>
         <Button
           size="sm"
-          colorScheme="blue"
+          color="blue.700"
           onClick={() => navigate("/popular-flashcards")}
         >
           View All
@@ -137,26 +138,26 @@ export default function Dashboard() {
             <Card
               key={set.id}
               bg="blue.50"
-              border="2px solid"
-              borderColor="blue.200"
               borderRadius="lg"
               boxShadow="lg"
               transition="all 0.3s ease-in-out"
               _hover={{ transform: "scale(1.05)", boxShadow: "2xl" }}
             >
-              <CardHeader>
+              <CardHeader bg="blue.500" borderTopRadius="lg">
                 <HStack spacing={3}>
-                  <Heading fontSize="lg" color="blue.700">
+                  <Heading fontSize="lg" color="white">
                     {set.title}
                   </Heading>
                   <Spacer />
-                  <Button
-                    size="sm"
-                    colorScheme="blue"
+                  <IconButton
+                    as={FaEye}
+                    size="xs"
+                    color="blue.600"
+                    bg="transparent"
+                    aria-label="View"
                     onClick={() => navigate(`/my-flashcards/${set.id}`)}
-                  >
-                    View
-                  </Button>
+                    _hover={{ color: "white", bg: "transparent" }}
+                  />
                 </HStack>
               </CardHeader>
               <CardBody>
@@ -172,9 +173,10 @@ export default function Dashboard() {
             </Card>
           ))}
         </SimpleGrid>
+
         <Button
           size="sm"
-          colorScheme="blue"
+          color="blue.500"
           onClick={() => navigate("/my-flashcards")}
         >
           View All

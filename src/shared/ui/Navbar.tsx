@@ -15,6 +15,7 @@ import {
   InputLeftElement,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Navbar() {
   const toast = useToast();
@@ -29,6 +30,12 @@ export default function Navbar() {
     });
   };
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchQuery = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
     <Flex as="nav" alignItems="center" mb="20px" gap="10px">
       <Image
@@ -57,6 +64,8 @@ export default function Navbar() {
           focusBorderColor="blue.600"
           borderRadius="2xl"
           _placeholder={{ color: "gray.500" }}
+          value={searchQuery}
+          onChange={handleSearchQuery}
         />
       </InputGroup>
 
