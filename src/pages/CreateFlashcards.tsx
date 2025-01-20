@@ -208,7 +208,7 @@ export default function CreateFlashcards() {
                   isRequired
                   isInvalid={isSubmitted && !flashcard.definition.trim()}
                 >
-                  <FormLabel fontSize="sm" fontWeight="bold" color="blue.900">
+                  <FormLabel fontSize="sm" fontWeight="bold" color="blue.800">
                     Definition
                   </FormLabel>
                   <Input
@@ -225,7 +225,7 @@ export default function CreateFlashcards() {
                   isRequired
                   isInvalid={isSubmitted && !flashcard.answer.trim()}
                 >
-                  <FormLabel fontSize="sm" fontWeight="bold" color="blue.900">
+                  <FormLabel fontSize="sm" fontWeight="bold" color="blue.800">
                     Answer
                   </FormLabel>
                   <Input
@@ -258,7 +258,7 @@ export default function CreateFlashcards() {
         colorScheme="teal"
         size="lg"
         w="100%"
-        _hover={{ bg: "blue.900" }}
+        _hover={{ bg: "blue.800" }}
         onClick={saveFlashcardSet}
       >
         Save Flashcard Set

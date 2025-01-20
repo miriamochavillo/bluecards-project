@@ -14,6 +14,7 @@ import {
   Input,
   InputLeftElement,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const toast = useToast();
@@ -27,12 +28,15 @@ export default function Navbar() {
       icon: <CheckIcon />,
     });
   };
+  const navigate = useNavigate();
   return (
     <Flex as="nav" alignItems="center" mb="20px" gap="10px">
       <Image
         src="src/shared/assets/1.png"
-        alt="BrightCards Logo"
+        alt="BlueCards"
         boxSize="40px"
+        onClick={() => navigate("/")}
+        cursor="pointer"
       />
       <Heading as="h1" color="white">
         BlueCards

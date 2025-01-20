@@ -39,11 +39,11 @@ export default function Flashcards() {
           transform: "scale(1.01)",
           boxShadow: "xl",
           bg: "blue.50",
-          borderColor: "blue.900",
+          borderColor: "blue.800",
         }}
       >
         <CardHeader>
-          <Heading as="h3" fontSize="24px" color="blue.900" fontWeight="bold">
+          <Heading as="h3" fontSize="24px" color="blue.800" fontWeight="bold">
             My Flashcards
           </Heading>
         </CardHeader>
@@ -65,7 +65,7 @@ export default function Flashcards() {
             colorScheme="blue"
             variant="solid"
             size="lg"
-            _hover={{ bg: "blue.900", transform: "scale(1.05)" }}
+            _hover={{ bg: "blue.800", transform: "scale(1.05)" }}
             onClick={() => navigate("/my-flashcards")}
           >
             View
@@ -83,11 +83,11 @@ export default function Flashcards() {
           transform: "scale(1.01)",
           boxShadow: "xl",
           bg: "blue.50",
-          borderColor: "blue.900",
+          borderColor: "blue.800",
         }}
       >
         <CardHeader>
-          <Heading as="h3" fontSize="24px" color="blue.900" fontWeight="bold">
+          <Heading as="h3" fontSize="24px" color="blue.800" fontWeight="bold">
             Create Flashcards
           </Heading>
         </CardHeader>
@@ -110,7 +110,7 @@ export default function Flashcards() {
             colorScheme="blue"
             variant="solid"
             size="lg"
-            _hover={{ bg: "blue.900", transform: "scale(1.05)" }}
+            _hover={{ bg: "blue.800", transform: "scale(1.05)" }}
             onClick={() => navigate("/create-flashcards")}
           >
             Create
