@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
   Card,
   CardBody,
@@ -10,7 +10,6 @@ import {
   IconButton,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
   Spacer,
@@ -26,6 +25,7 @@ import { SimpleGrid } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { SlOptionsVertical } from "react-icons/sl";
 import EditFlashcardSet from "./EditFlashcardSet";
+import { FaEdit, FaEye } from "react-icons/fa";
 interface FlashcardSet {
   id: string;
   title: string;
@@ -144,12 +144,29 @@ export default function MyFlashcards() {
                           aria-label="Options"
                           bg="transparent"
                         />
-                        <MenuList>
-                          <MenuItem onClick={() => openEditModal(set)}>
+                        <MenuList
+                          sx={{
+                            fontSize: "sm",
+                            color: "blue.700",
+                          }}
+                          minWidth="100px"
+                        >
+                          <MenuItem
+                            icon={<FaEye />}
+                            onClick={() => navigate(`/my-flashcards/${set.id}`)}
+                          >
+                            View
+                          </MenuItem>
+                          <MenuItem
+                            icon={<FaEdit />}
+                            onClick={() => openEditModal(set)}
+                          >
                             Edit
                           </MenuItem>
-                          <MenuDivider />
-                          <MenuItem onClick={() => deleteFlashcardSet(set.id)}>
+                          <MenuItem
+                            icon={<DeleteIcon />}
+                            onClick={() => deleteFlashcardSet(set.id)}
+                          >
                             Delete
                           </MenuItem>
                         </MenuList>

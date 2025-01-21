@@ -5,14 +5,12 @@ import {
   CardBody,
   SimpleGrid,
   Text,
-  Button,
   HStack,
   Spacer,
   Heading,
-  Icon,
 } from "@chakra-ui/react";
-import { ArrowRightIcon, ArrowLeftIcon } from "@chakra-ui/icons";
 import { popularFlashcardContent } from "./PopularFlashcardsContent";
+import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 
 interface Flashcard {
   definition: string;
@@ -104,23 +102,19 @@ export default function FlashcardSet() {
               </CardBody>
             </Card>
             <HStack spacing={4}>
-              <Button
+              <ButtonPrimary
                 onClick={handlePrevious}
                 disabled={flashcards.length <= 1}
-                colorScheme="blue"
               >
-                <Icon as={ArrowLeftIcon} boxSize={3} />
                 Previous
-              </Button>
+              </ButtonPrimary>
               <Spacer />
-              <Button
+              <ButtonPrimary
                 onClick={handleNext}
                 disabled={flashcards.length <= 1}
-                colorScheme="blue"
               >
                 Next
-                <Icon as={ArrowRightIcon} boxSize={3} />
-              </Button>
+              </ButtonPrimary>
             </HStack>
           </>
         ) : (

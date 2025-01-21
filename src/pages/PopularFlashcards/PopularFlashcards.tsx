@@ -8,11 +8,10 @@ import {
   Spacer,
   Card,
   SimpleGrid,
-  IconButton,
 } from "@chakra-ui/react";
 import { popularFlashcardContent } from "./PopularFlashcardsContent";
 import { useNavigate } from "react-router-dom";
-import { FaEye } from "react-icons/fa";
+import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 
 interface PopularFlashcard {
   id: string;
@@ -52,21 +51,13 @@ export default function PopularFlashcards() {
                   {popularFlashcard.title}
                 </Heading>
                 <Spacer />
-                <IconButton
-                  icon={<FaEye />}
-                  size="xs"
-                  color="blue.600"
-                  bg="transparent"
-                  aria-label="View"
+                <ButtonPrimary
                   onClick={() =>
                     navigate(`/popular-flashcards/${popularFlashcard.id}`)
                   }
-                  _hover={{
-                    color: "white",
-                    bg: "transparent",
-                    cursor: "pointer",
-                  }}
-                />
+                >
+                  View
+                </ButtonPrimary>
               </HStack>
             </CardHeader>
             <CardBody>

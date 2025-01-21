@@ -16,9 +16,10 @@ import {
   useToast,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import ButtonPrimary from "../shared/ui/components/ButtonPrimary";
 
 export default function CreateFlashcards() {
   const flashcardSetId = uuidv4();
@@ -186,13 +187,6 @@ export default function CreateFlashcards() {
                   Flashcard {index + 1}
                 </Heading>
                 <Flex>
-                  {/* <IconButton
-                    aria-label="Drag Flashcard"
-                    icon={<DragHandleIcon />}
-                    size="sm"
-                    colorScheme="teal"
-                    mr={2}
-                  /> */}
                   <IconButton
                     aria-label="Remove Flashcard"
                     icon={<DeleteIcon />}
@@ -240,28 +234,19 @@ export default function CreateFlashcards() {
               </HStack>
             </Box>
           ))}
+          <Button
+            variant="outline"
+            colorScheme="blue"
+            _hover={{ bg: "white", border: "2px solid" }}
+            onClick={addFlashcard}
+          >
+            Add Flashcard
+          </Button>
         </VStack>
-
-        <Button
-          mt={4}
-          leftIcon={<AddIcon />}
-          colorScheme="blue"
-          onClick={addFlashcard}
-        >
-          Add Flashcard
-        </Button>
       </Box>
-
-      <Button
-        mt={6}
-        colorScheme="teal"
-        size="lg"
-        w="100%"
-        _hover={{ bg: "blue.800" }}
-        onClick={saveFlashcardSet}
-      >
+      <ButtonPrimary onClick={saveFlashcardSet}>
         Save Flashcard Set
-      </Button>
+      </ButtonPrimary>
     </SimpleGrid>
   );
 }

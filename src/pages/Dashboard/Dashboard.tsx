@@ -17,6 +17,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { popularFlashcardContent } from "../PopularFlashcards/PopularFlashcardsContent";
 import { FaEye } from "react-icons/fa";
+import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 
 interface MyFlashcardSet {
   id: string;
@@ -122,13 +123,9 @@ export default function Dashboard() {
             </Card>
           ))}
         </SimpleGrid>
-        <Button
-          size="sm"
-          color="blue.700"
-          onClick={() => navigate("/popular-flashcards")}
-        >
+        <ButtonPrimary onClick={() => navigate("/popular-flashcards")}>
           View All
-        </Button>
+        </ButtonPrimary>
       </Box>
 
       <Divider />
@@ -181,14 +178,9 @@ export default function Dashboard() {
             </Card>
           ))}
         </SimpleGrid>
-
-        <Button
-          size="sm"
-          color="blue.500"
-          onClick={() => navigate("/my-flashcards")}
-        >
-          View All
-        </Button>
+        <ButtonPrimary onClick={() => navigate("/my-flashcards")}>
+          View all
+        </ButtonPrimary>
       </Box>
     </SimpleGrid>
   );
