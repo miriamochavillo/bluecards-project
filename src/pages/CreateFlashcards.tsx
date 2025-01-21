@@ -16,20 +16,19 @@ import {
   useToast,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { AddIcon, DeleteIcon, DragHandleIcon } from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 export default function CreateFlashcards() {
-  // Generate a unique ID for the flashcard set
   const flashcardSetId = uuidv4();
 
-  // State variables for title, description, flashcards, submission status, and toast notifications
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [flashcards, setFlashcards] = useState([
     { definition: "", answer: "" },
   ]);
+
   const navigate = useNavigate();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const toast = useToast();
@@ -187,13 +186,13 @@ export default function CreateFlashcards() {
                   Flashcard {index + 1}
                 </Heading>
                 <Flex>
-                  <IconButton
+                  {/* <IconButton
                     aria-label="Drag Flashcard"
                     icon={<DragHandleIcon />}
                     size="sm"
                     colorScheme="teal"
                     mr={2}
-                  />
+                  /> */}
                   <IconButton
                     aria-label="Remove Flashcard"
                     icon={<DeleteIcon />}

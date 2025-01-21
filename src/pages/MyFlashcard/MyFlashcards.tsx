@@ -26,8 +26,6 @@ import { SimpleGrid } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { SlOptionsVertical } from "react-icons/sl";
 import EditFlashcardSet from "./EditFlashcardSet";
-import { FaEye } from "react-icons/fa";
-
 interface FlashcardSet {
   id: string;
   title: string;
@@ -44,8 +42,12 @@ export default function MyFlashcards() {
   const [currentSet, setCurrentSet] = useState<FlashcardSet | null>(null);
 
   useEffect(() => {
-    // Fetch flashcard sets from localStorage
     const savedSets = JSON.parse(localStorage.getItem("flashcardSets") || "[]");
+
+    savedSets.sort(
+      (a: FlashcardSet, b: FlashcardSet) =>
+        new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime()
+    );
     setFlashcardSets(savedSets);
   }, []);
 
@@ -122,26 +124,23 @@ export default function MyFlashcards() {
               >
                 <CardHeader bg="blue.500" borderTopRadius="lg">
                   <HStack spacing={3}>
-                    <Heading fontSize="lg" color="white">
+                    <Heading
+                      fontSize="lg"
+                      color="white"
+                      cursor="pointer"
+                      onClick={() => navigate(`/my-flashcards/${set.id}`)}
+                      _hover={{ textDecoration: "underline", color: "white" }}
+                    >
                       {set.title}
                     </Heading>
                     <Spacer />
                     <HStack spacing={2}>
-                      <IconButton
-                        icon={<FaEye />}
-                        size="xs"
-                        color="blue.600"
-                        bg="transparent"
-                        aria-label="View"
-                        onClick={() => navigate(`/my-flashcards/${set.id}`)}
-                        _hover={{ color: "white", bg: "transparent" }}
-                      />
                       <Menu placement="bottom-end">
                         <MenuButton
                           as={IconButton}
                           size="sm"
                           icon={<SlOptionsVertical />}
-                          colorScheme="teal"
+                          colorScheme="blue"
                           aria-label="Options"
                           bg="transparent"
                         />
