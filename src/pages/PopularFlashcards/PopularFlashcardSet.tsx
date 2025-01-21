@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -10,15 +10,9 @@ import {
   Spacer,
   Heading,
   Icon,
-  IconButton,
-  MenuItem,
-  MenuList,
-  Menu,
-  MenuDivider,
-  MenuButton,
 } from "@chakra-ui/react";
-import { ArrowRightIcon, ArrowLeftIcon, HamburgerIcon } from "@chakra-ui/icons";
-import EditFlashcards from "./EditFlashcards";
+import { ArrowRightIcon, ArrowLeftIcon } from "@chakra-ui/icons";
+import { popularFlashcardContent } from "./PopularFlashcardsContent";
 
 interface Flashcard {
   definition: string;
@@ -44,11 +38,11 @@ export default function FlashcardSet() {
   const [title, setTitle] = useState("");
 
   useEffect(() => {
-    // Fetch flashcard set from localStorage using setId
-    const savedSets = JSON.parse(localStorage.getItem("flashcardSets") || "[]");
-    const currentSet = savedSets.find((set: FlashcardSet) => set.id === setId);
+    // Fetch flashcard set from flashcardContent using setId
+    if (!setId) return;
+    const currentSet = popularFlashcardContent.find((set) => set.id === setId);
     if (currentSet) {
-      setFlashcards(currentSet.flashcards);
+      setFlashcards(currentSet.flashcards || []);
       setTitle(currentSet.title);
     }
   }, [setId]);
@@ -69,35 +63,6 @@ export default function FlashcardSet() {
     setIsFlipped(!isFlipped);
   };
 
-  const [isEditOpen, setIsEditOpen] = useState(false);
-  const [currentSet, setCurrentSet] = useState<FlashcardSet | null>(null);
-
-  const openEditModal = () => {
-    setCurrentSet({
-      id: setId || "",
-      title,
-      flashcards,
-      description: "", // Add description if needed
-      lastUpdated: new Date().toISOString(),
-    });
-    setIsEditOpen(true);
-  };
-
-  const closeEditModal = () => {
-    setIsEditOpen(false);
-  };
-
-  const updateFlashcardSet = (updatedSet: FlashcardSet) => {
-    const savedSets = JSON.parse(localStorage.getItem("flashcardSets") || "[]");
-    const updatedSets = savedSets.map((set: FlashcardSet) =>
-      set.id === updatedSet.id ? updatedSet : set
-    );
-    localStorage.setItem("flashcardSets", JSON.stringify(updatedSets));
-    setFlashcards(updatedSet.flashcards);
-    setTitle(updatedSet.title);
-  };
-
-  const navigate = useNavigate();
   return (
     <>
       <SimpleGrid spacing={8} maxW="800px" mx="auto" p={6}>
@@ -110,23 +75,6 @@ export default function FlashcardSet() {
           <Heading as="h2" color="white">
             {title}
           </Heading>
-          <Spacer />
-          <Menu placement="bottom-end">
-            <MenuButton
-              as={IconButton}
-              size="sm"
-              icon={<HamburgerIcon />}
-              colorScheme="blue"
-              aria-label="Options"
-            />
-            <MenuList sx={{ fontSize: "sm" }}>
-              <MenuItem onClick={openEditModal}>Edit Flashcards</MenuItem>
-              <MenuDivider />
-              <MenuItem onClick={() => navigate("/my-flashcards")}>
-                Return to My Flashcards
-              </MenuItem>
-            </MenuList>
-          </Menu>
         </HStack>
 
         {flashcards.length > 0 ? (
@@ -179,14 +127,6 @@ export default function FlashcardSet() {
           <Text textAlign="center">No flashcards found in this set.</Text>
         )}
       </SimpleGrid>
-      {currentSet && (
-        <EditFlashcards
-          isOpen={isEditOpen}
-          onClose={closeEditModal}
-          flashcardSet={currentSet}
-          updateFlashcardSet={updateFlashcardSet}
-        />
-      )}
     </>
   );
 }
