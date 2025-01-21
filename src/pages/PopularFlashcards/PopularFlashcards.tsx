@@ -10,12 +10,12 @@ import {
   SimpleGrid,
   IconButton,
 } from "@chakra-ui/react";
-import { flashcardContent } from "./PopularFlashcardsContent";
+import { popularFlashcardContent } from "./PopularFlashcardsContent";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 
 interface PopularFlashcard {
-  id: number;
+  id: string;
   title: string;
   description: string;
   lastUpdated: string;
@@ -24,7 +24,7 @@ interface PopularFlashcard {
 }
 
 export default function PopularFlashcards() {
-  const sortedFlashcards = flashcardContent.sort(
+  const sortedFlashcards = popularFlashcardContent.sort(
     (a: PopularFlashcard, b: PopularFlashcard) => b.views - a.views
   );
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ export default function PopularFlashcards() {
                 </Heading>
                 <Spacer />
                 <IconButton
-                  as={FaEye}
+                  icon={<FaEye />}
                   size="xs"
                   color="blue.600"
                   bg="transparent"
@@ -61,7 +61,11 @@ export default function PopularFlashcards() {
                   onClick={() =>
                     navigate(`/popular-flashcards/${popularFlashcard.id}`)
                   }
-                  _hover={{ color: "white", bg: "transparent" }}
+                  _hover={{
+                    color: "white",
+                    bg: "transparent",
+                    cursor: "pointer",
+                  }}
                 />
               </HStack>
             </CardHeader>

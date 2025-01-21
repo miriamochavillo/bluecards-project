@@ -12,7 +12,7 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@chakra-ui/icons";
-import { flashcardContent } from "./PopularFlashcardsContent";
+import { popularFlashcardContent } from "./PopularFlashcardsContent";
 
 interface Flashcard {
   definition: string;
@@ -40,9 +40,7 @@ export default function FlashcardSet() {
   useEffect(() => {
     // Fetch flashcard set from flashcardContent using setId
     if (!setId) return;
-    const currentSet = flashcardContent.find(
-      (set) => set.id === parseInt(setId)
-    );
+    const currentSet = popularFlashcardContent.find((set) => set.id === setId);
     if (currentSet) {
       setFlashcards(currentSet.flashcards || []);
       setTitle(currentSet.title);

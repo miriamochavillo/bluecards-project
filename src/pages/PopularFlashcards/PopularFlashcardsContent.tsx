@@ -1,6 +1,6 @@
-export const flashcardContent = [
+export const popularFlashcardContent = [
   {
-    id: 1,
+    id: "1",
     title: "Thermodynamics",
     description:
       "Explore the principles of energy transfer, heat, and work in physical systems.",
@@ -20,7 +20,7 @@ export const flashcardContent = [
     ],
   },
   {
-    id: 2,
+    id: "2",
     title: "Material Science",
     description:
       "Understand the properties, structures, and performance of various materials.",
@@ -40,7 +40,7 @@ export const flashcardContent = [
     ],
   },
   {
-    id: 3,
+    id: "3",
     title: "Quantum Mechanics",
     description:
       "Dive into the study of matter and energy at atomic and subatomic levels.",
@@ -60,7 +60,7 @@ export const flashcardContent = [
     ],
   },
   {
-    id: 4,
+    id: "4",
     title: "Basic Math",
     description:
       "Learn essential mathematics concepts and formulas for everyday calculations.",
@@ -80,7 +80,7 @@ export const flashcardContent = [
     ],
   },
   {
-    id: 5,
+    id: "5",
     title: "World History",
     description:
       "Discover key historical events and dates that shaped the world.",
@@ -100,7 +100,7 @@ export const flashcardContent = [
     ],
   },
   {
-    id: 6,
+    id: "6",
     title: "English Grammar",
     description:
       "Master common grammar rules and examples to improve your writing skills.",
@@ -120,7 +120,7 @@ export const flashcardContent = [
     ],
   },
   {
-    id: 7,
+    id: "7",
     title: "Advanced Mathematics",
     description: "Explore complex mathematical theories and applications.",
     lastUpdated: "2024-01-17",
@@ -139,7 +139,7 @@ export const flashcardContent = [
     ],
   },
   {
-    id: 8,
+    id: "8",
     title: "Electronics",
     description:
       "Understand the fundamentals of electronic circuits and devices.",
@@ -159,7 +159,7 @@ export const flashcardContent = [
     ],
   },
   {
-    id: 9,
+    id: "9",
     title: "Microelectronics",
     description:
       "Learn about the design and function of microelectronic components.",
@@ -179,7 +179,7 @@ export const flashcardContent = [
     ],
   },
   {
-    id: 10,
+    id: "10",
     title: "Software Development",
     description:
       "Gain insights into software development processes and best practices.",
@@ -199,7 +199,7 @@ export const flashcardContent = [
     ],
   },
   {
-    id: 11,
+    id: "11",
     title: "Differential Equations",
     description:
       "Study the methods for solving differential equations and their applications.",
@@ -219,7 +219,7 @@ export const flashcardContent = [
     ],
   },
   {
-    id: 12,
+    id: "12",
     title: "Trigonometry",
     description:
       "Understand the relationships between the angles and sides of triangles.",

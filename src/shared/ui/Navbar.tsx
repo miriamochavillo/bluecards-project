@@ -1,4 +1,4 @@
-import { CheckIcon, SearchIcon } from "@chakra-ui/icons";
+import { CheckIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Button,
@@ -10,12 +10,9 @@ import {
   useToast,
   AvatarBadge,
   Image,
-  InputGroup,
-  Input,
-  InputLeftElement,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import SearchBar from "./SearchBar";
 
 export default function Navbar() {
   const toast = useToast();
@@ -30,16 +27,11 @@ export default function Navbar() {
     });
   };
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleSearchQuery = (event) => {
-    setSearchQuery(event.target.value);
-  };
 
   return (
     <Flex as="nav" alignItems="center" mb="20px" gap="10px">
       <Image
-        src="src/shared/assets/1.png"
+        src="src/shared/assets/Logo-Blue.png"
         alt="BlueCards"
         boxSize="40px"
         onClick={() => navigate("/")}
@@ -51,23 +43,7 @@ export default function Navbar() {
 
       <Spacer />
 
-      <InputGroup maxW="400px" mx="auto">
-        <InputLeftElement pointerEvents="none">
-          <SearchIcon color="gray.400" />
-        </InputLeftElement>
-        <Input
-          type="text"
-          placeholder="Search flashcards..."
-          bg="white"
-          border="2px solid"
-          borderColor="blue.400"
-          focusBorderColor="blue.600"
-          borderRadius="2xl"
-          _placeholder={{ color: "gray.500" }}
-          value={searchQuery}
-          onChange={handleSearchQuery}
-        />
-      </InputGroup>
+      <SearchBar />
 
       <Spacer />
 

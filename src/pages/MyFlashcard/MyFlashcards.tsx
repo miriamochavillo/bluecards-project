@@ -128,7 +128,7 @@ export default function MyFlashcards() {
                     <Spacer />
                     <HStack spacing={2}>
                       <IconButton
-                        as={FaEye}
+                        icon={<FaEye />}
                         size="xs"
                         color="blue.600"
                         bg="transparent"

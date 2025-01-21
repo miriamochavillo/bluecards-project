@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { flashcardContent } from "./PopularFlashcards/PopularFlashcardsContent";
+import { popularFlashcardContent } from "../PopularFlashcards/PopularFlashcardsContent";
 import { FaEye } from "react-icons/fa";
 
 interface MyFlashcardSet {
@@ -27,7 +27,7 @@ interface MyFlashcardSet {
 }
 
 interface PopularFlashcard {
-  id: number;
+  id: string;
   title: string;
   description: string;
   lastUpdated: string;
@@ -49,7 +49,7 @@ export default function Dashboard() {
     setLatestFlashcardSets(sortedSets.slice(0, 3));
   }, []);
 
-  const sortedPopularFlashcards = flashcardContent
+  const sortedPopularFlashcards = popularFlashcardContent
     .sort((a: PopularFlashcard, b: PopularFlashcard) => b.views - a.views)
     .slice(0, 3);
 
@@ -89,7 +89,7 @@ export default function Dashboard() {
                   </Heading>
                   <Spacer />
                   <IconButton
-                    as={FaEye}
+                    icon={<FaEye />}
                     size="xs"
                     color="blue.600"
                     bg="transparent"
@@ -97,7 +97,11 @@ export default function Dashboard() {
                     onClick={() =>
                       navigate(`/popular-flashcards/${popularFlashcard.id}`)
                     }
-                    _hover={{ color: "white", bg: "transparent" }}
+                    _hover={{
+                      color: "white",
+                      bg: "transparent",
+                      cursor: "pointer",
+                    }}
                   />
                 </HStack>
               </CardHeader>
@@ -150,13 +154,17 @@ export default function Dashboard() {
                   </Heading>
                   <Spacer />
                   <IconButton
-                    as={FaEye}
+                    icon={<FaEye />}
                     size="xs"
                     color="blue.600"
                     bg="transparent"
                     aria-label="View"
                     onClick={() => navigate(`/my-flashcards/${set.id}`)}
-                    _hover={{ color: "white", bg: "transparent" }}
+                    _hover={{
+                      color: "white",
+                      bg: "transparent",
+                      cursor: "pointer",
+                    }}
                   />
                 </HStack>
               </CardHeader>
