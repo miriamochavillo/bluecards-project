@@ -57,6 +57,26 @@ export default function SearchBar() {
     setSearchResults(results);
   };
 
+  const handleFlashcardClick = (flashcard: Flashcard) => {
+    const isPopular = popularFlashcardContent.some(
+      (popularFlashcard) => popularFlashcard.id === flashcard.id
+    );
+    const path = isPopular
+      ? `/popular-flashcards/${flashcard.id}`
+      : `/my-flashcards/${flashcard.id}`;
+    navigate(path);
+
+    // Update recent flashcards
+    setSearchResults((prev) => {
+      const updated = [flashcard, ...prev.filter((f) => f.id !== flashcard.id)];
+      return updated.slice(0, 6); // Limit to 6 recent flashcards
+    });
+
+    // Clear the search bar
+    setSearchQuery("");
+    setSearchResults([]);
+  };
+
   return (
     <Box position="relative" minW="50%" mx="auto">
       <InputGroup>
@@ -97,15 +117,7 @@ export default function SearchBar() {
                 px={4}
                 py={2}
                 _hover={{ bg: "blue.50", cursor: "pointer" }}
-                onClick={() => {
-                  const isPopular = popularFlashcardContent.some(
-                    (popularFlashcard) => popularFlashcard.id === flashcard.id
-                  );
-                  const path = isPopular
-                    ? `/popular-flashcards/${flashcard.id}`
-                    : `/my-flashcards/${flashcard.id}`;
-                  navigate(path);
-                }}
+                onClick={() => handleFlashcardClick(flashcard)}
               >
                 {flashcard.title}
               </ListItem>
