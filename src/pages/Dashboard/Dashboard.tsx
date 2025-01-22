@@ -13,46 +13,19 @@ import {
   Divider,
   IconButton,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { popularFlashcardContent } from "../PopularFlashcards/PopularFlashcardsContent";
 import { FaEye } from "react-icons/fa";
 import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
-
-type MyFlashcardSet = {
-  id: string;
-  title: string;
-  description: string;
-  lastUpdated: string;
-  flashcards: { definition: string; answer: string }[];
-};
-
-type PopularFlashcard = {
-  id: string;
-  title: string;
-  description: string;
-  lastUpdated: string;
-  views: number;
-};
+import { useMyFlashcards } from "./hooks/useMyFlashcards";
+import {
+  usePopularFlashcards,
+  PopularFlashcard,
+} from "./hooks/usePopularFlashcards";
 
 export default function Dashboard() {
+  const { latestFlashcardSets } = useMyFlashcards();
+  const { sortedPopularFlashcards } = usePopularFlashcards();
   const navigate = useNavigate();
-  const [latestFlashcardSets, setLatestFlashcardSets] = useState<
-    MyFlashcardSet[]
-  >([]);
-
-  useEffect(() => {
-    const savedSets = JSON.parse(localStorage.getItem("flashcardSets") || "[]");
-    const sortedSets = savedSets.sort(
-      (a: MyFlashcardSet, b: MyFlashcardSet) =>
-        new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime()
-    );
-    setLatestFlashcardSets(sortedSets.slice(0, 3));
-  }, []);
-
-  const sortedPopularFlashcards = popularFlashcardContent
-    .sort((a: PopularFlashcard, b: PopularFlashcard) => b.views - a.views)
-    .slice(0, 3);
 
   return (
     <SimpleGrid spacing={10} maxW="1200px" mx="auto" p={6}>
