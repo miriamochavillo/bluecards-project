@@ -10,7 +10,7 @@ import RootLayout from "../shared/ui/RootLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../pages/Profile";
 import FlashcardMenu from "../pages/FlashcardMenu";
-import CreateFlashcards from "../pages/CreateFlashcards";
+import CreateFlashcards from "../pages/CreateFlashcards/CreateFlashcards";
 import MyFlashcards from "../pages/MyFlashcard/MyFlashcards";
 import FlashcardSet from "../pages/FlashcardSet/FlashcardSet";
 import PopularFlashcards from "../pages/PopularFlashcards/PopularFlashcards";
