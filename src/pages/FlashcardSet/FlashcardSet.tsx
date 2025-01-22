@@ -19,12 +19,12 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import EditFlashcards from "./EditFlashcards";
 import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 
-interface Flashcard {
+type Flashcard = {
   definition: string;
   answer: string;
-}
+};
 
-interface FlashcardSet {
+type FlashcardSet = {
   id: string;
   title: string;
   description: string;
@@ -33,7 +33,7 @@ interface FlashcardSet {
     definition: string;
     answer: string;
   }[];
-}
+};
 
 export default function FlashcardSet() {
   const { setId } = useParams();

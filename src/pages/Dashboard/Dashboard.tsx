@@ -19,21 +19,21 @@ import { popularFlashcardContent } from "../PopularFlashcards/PopularFlashcardsC
 import { FaEye } from "react-icons/fa";
 import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 
-interface MyFlashcardSet {
+type MyFlashcardSet = {
   id: string;
   title: string;
   description: string;
   lastUpdated: string;
   flashcards: { definition: string; answer: string }[];
-}
+};
 
-interface PopularFlashcard {
+type PopularFlashcard = {
   id: string;
   title: string;
   description: string;
   lastUpdated: string;
   views: number;
-}
+};
 
 export default function Dashboard() {
   const navigate = useNavigate();

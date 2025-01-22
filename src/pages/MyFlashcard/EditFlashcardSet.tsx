@@ -25,20 +25,20 @@ import { Modal } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 
-interface FlashcardSet {
+type FlashcardSet = {
   id: string;
   title: string;
   description: string;
   lastUpdated: string;
   flashcards: { definition: string; answer: string }[];
-}
+};
 
-interface EditFlashcardSetProps {
+type EditFlashcardSetProps = {
   isOpen: boolean;
   onClose: () => void;
   flashcardSet: FlashcardSet;
   updateFlashcardSet: (updatedSet: FlashcardSet) => void;
-}
+};
 
 export default function EditFlashcardSet({
   isOpen,

@@ -26,13 +26,14 @@ import { useNavigate } from "react-router-dom";
 import { SlOptionsVertical } from "react-icons/sl";
 import EditFlashcardSet from "./EditFlashcardSet";
 import { FaEdit, FaEye } from "react-icons/fa";
-interface FlashcardSet {
+
+type FlashcardSet = {
   id: string;
   title: string;
   description: string;
   lastUpdated: string;
   flashcards: { definition: string; answer: string }[];
-}
+};
 
 export default function MyFlashcards() {
   const toast = useToast();

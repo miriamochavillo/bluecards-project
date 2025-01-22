@@ -13,14 +13,14 @@ import { popularFlashcardContent } from "./PopularFlashcardsContent";
 import { useNavigate } from "react-router-dom";
 import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 
-interface PopularFlashcard {
+type PopularFlashcard = {
   id: string;
   title: string;
   description: string;
   lastUpdated: string;
   views: number;
   flashcards: { definition: string; answer: string }[];
-}
+};
 
 export default function PopularFlashcards() {
   const sortedFlashcards = popularFlashcardContent.sort(

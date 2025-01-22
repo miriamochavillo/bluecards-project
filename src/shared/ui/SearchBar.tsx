@@ -11,12 +11,12 @@ import {
 import { popularFlashcardContent } from "../../pages/PopularFlashcards/PopularFlashcardsContent";
 import { useNavigate } from "react-router-dom";
 
-interface Flashcard {
+type Flashcard = {
   id: string;
   title: string;
   description: string;
   lastUpdated: string;
-}
+};
 
 export default function SearchBar() {
   const [searchQuery, setSearchQuery] = useState("");
