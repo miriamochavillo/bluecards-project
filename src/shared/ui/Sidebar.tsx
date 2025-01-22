@@ -1,7 +1,6 @@
+import { AtSignIcon, CalendarIcon, EditIcon } from "@chakra-ui/icons";
 import { ListItem, List, ListIcon } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
-import { TbCardsFilled } from "react-icons/tb";
-import { FaHome, FaRegUserCircle } from "react-icons/fa";
 
 export default function Sidebar() {
   const getLinkStyles = ({ isActive }: { isActive: boolean }) => ({
@@ -24,7 +23,7 @@ export default function Sidebar() {
             borderRadius="10px"
             _hover={getHoverStyles(isActive)}
           >
-            <ListIcon as={FaHome} />
+            <ListIcon as={CalendarIcon} />
             Home
           </ListItem>
         )}
@@ -37,7 +36,7 @@ export default function Sidebar() {
             borderRadius="10px"
             _hover={getHoverStyles(isActive)}
           >
-            <ListIcon as={TbCardsFilled} />
+            <ListIcon as={EditIcon} />
             Flashcards
           </ListItem>
         )}
@@ -50,7 +49,7 @@ export default function Sidebar() {
             borderRadius="10px"
             _hover={getHoverStyles(isActive)}
           >
-            <ListIcon as={FaRegUserCircle} />
+            <ListIcon as={AtSignIcon} />
             Profile
           </ListItem>
         )}

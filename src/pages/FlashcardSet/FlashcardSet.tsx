@@ -116,10 +116,10 @@ export default function FlashcardSet() {
               as={IconButton}
               size="sm"
               icon={<HamburgerIcon />}
-              colorScheme="blue"
+              colorScheme="teal"
               aria-label="Options"
             />
-            <MenuList sx={{ fontSize: "sm" }}>
+            <MenuList>
               <MenuItem onClick={openEditModal}>Edit Flashcards</MenuItem>
               <MenuDivider />
               <MenuItem onClick={() => navigate("/my-flashcards")}>
