@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -9,57 +7,16 @@ import {
   Spacer,
   Heading,
 } from "@chakra-ui/react";
-import { popularFlashcardContent } from "./PopularFlashcardsContent";
 import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
-
-type Flashcard = {
-  definition: string;
-  answer: string;
-};
-
-type FlashcardSet = {
-  id: string;
-  title: string;
-  description: string;
-  lastUpdated: string;
-  flashcards: {
-    definition: string;
-    answer: string;
-  }[];
-};
+import { useFetchFlashcard } from "./hooks/useFetchFlashcard";
+import { useFlashcardNavigation } from "./hooks/useFlashcardNavigation";
+import { useFlip } from "./hooks/useFlip";
 
 export default function FlashcardSet() {
-  const { setId } = useParams();
-  const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [title, setTitle] = useState("");
-
-  useEffect(() => {
-    // Fetch flashcard set from flashcardContent using setId
-    if (!setId) return;
-    const currentSet = popularFlashcardContent.find((set) => set.id === setId);
-    if (currentSet) {
-      setFlashcards(currentSet.flashcards || []);
-      setTitle(currentSet.title);
-    }
-  }, [setId]);
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % flashcards.length);
-    setIsFlipped(false);
-  };
-
-  const handlePrevious = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + flashcards.length) % flashcards.length
-    );
-    setIsFlipped(false);
-  };
-
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
-  };
+  const { flashcards, title } = useFetchFlashcard();
+  const { currentIndex, handleNext, handlePrevious } =
+    useFlashcardNavigation(flashcards);
+  const { isFlipped, handleFlip } = useFlip();
 
   return (
     <>
