@@ -17,10 +17,8 @@ import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 import { useMyFlashcards } from "./hooks/useMyFlashcards";
-import {
-  usePopularFlashcards,
-  PopularFlashcard,
-} from "./hooks/usePopularFlashcards";
+import { usePopularFlashcards } from "./hooks/usePopularFlashcards";
+import { PopularFlashcard } from "../../shared/types/typesPopularFlashcard";
 
 export default function Dashboard() {
   const { latestFlashcardSets } = useMyFlashcards();

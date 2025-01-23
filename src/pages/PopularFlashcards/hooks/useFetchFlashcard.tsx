@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { popularFlashcardContent } from "../PopularFlashcardsContent";
-import { Flashcard } from "../types/types";
+import { Flashcard } from "../../../shared/types/typesFlashcard";
 export const useFetchFlashcard = () => {
   const { setId } = useParams();
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);

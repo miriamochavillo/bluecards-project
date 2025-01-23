@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { MyFlashcardSet } from "../../types/types";
+import { useState, useEffect } from "react";
+import { MyFlashcardSet } from "../../../../shared/types/typesMyFlashcardSet";
 import { useToast } from "@chakra-ui/react";
 
 export const useFlashcardSetManager = () => {

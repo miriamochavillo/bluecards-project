@@ -1,9 +1,9 @@
-import { MyFlashcardSet, Flashcard } from "../types/typesEditMyFlashcard";
+import { MyFlashcardSet } from "../types/typesMyFlashcardSet";
 
-export const useAddRemoveFlashcard = (
+export function useAddRemoveFlashcard(
   currentSet: MyFlashcardSet,
   setCurrentSet: React.Dispatch<React.SetStateAction<MyFlashcardSet>>
-) => {
+) {
   const handleFlashcardChange = (
     index: number,
     field: string,
@@ -14,31 +14,25 @@ export const useAddRemoveFlashcard = (
       ...updatedFlashcards[index],
       [field]: value,
     };
-    setCurrentSet((prevSet: MyFlashcardSet) => ({
+    setCurrentSet((prevSet) => ({
       ...prevSet,
       flashcards: updatedFlashcards,
     }));
   };
 
   const addFlashcard = () => {
-    setCurrentSet((prevSet: MyFlashcardSet) => ({
+    setCurrentSet((prevSet) => ({
       ...prevSet,
       flashcards: [...prevSet.flashcards, { definition: "", answer: "" }],
     }));
   };
 
   const removeFlashcard = (index: number) => {
-    setCurrentSet((prevSet: MyFlashcardSet) => ({
+    setCurrentSet((prevSet) => ({
       ...prevSet,
-      flashcards: prevSet.flashcards.filter(
-        (_: Flashcard, i: number) => i !== index
-      ),
+      flashcards: prevSet.flashcards.filter((_, i) => i !== index),
     }));
   };
 
-  return {
-    handleFlashcardChange,
-    addFlashcard,
-    removeFlashcard,
-  };
-};
+  return { handleFlashcardChange, addFlashcard, removeFlashcard };
+}

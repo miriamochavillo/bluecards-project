@@ -20,10 +20,10 @@ import {
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Modal } from "@chakra-ui/react";
 import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
-import { EditFlashcardSetProps } from "../../EditFlashcards/types/typesEditMyFlashcard";
-import { useSaveEditedSet } from "../../EditFlashcards/hooks/useSaveEditedSet";
-import { useEditFlashcardSet } from "../../EditFlashcards/hooks/useEditFlashcardSet";
-import { useAddRemoveFlashcard } from "../../EditFlashcards/hooks/useAddRemoveFlashcard";
+import { EditFlashcardSetProps } from "../../../shared/types/typesEditFlashcardSet";
+import { useAddRemoveFlashcard } from "../../../shared/hooks/useAddRemoveFlashcard";
+import { useEditFlashcardSet } from "../../../shared/hooks/useEditFlashcardSet";
+import { useSaveEditedSet } from "../../../shared/hooks/useSaveEditedSet";
 
 export default function EditFlashcards({
   isOpen,

@@ -1,10 +1,5 @@
 import { useState } from "react";
-
-// Define a type for the flashcard
-type Flashcard = {
-  definition: string;
-  answer: string;
-};
+import { Flashcard } from "../../../shared/types/typesFlashcard";
 
 type Props = {
   index: number;

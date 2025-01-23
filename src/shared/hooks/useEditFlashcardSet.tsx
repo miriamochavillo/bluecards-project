@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { MyFlashcardSet } from "../types/typesEditMyFlashcard";
+import { useState, useEffect } from "react";
+import { MyFlashcardSet } from "../types/typesMyFlashcardSet";
 
-export const useEditFlashcardSet = (flashcardSet: MyFlashcardSet) => {
+export function useEditFlashcardSet(flashcardSet: MyFlashcardSet) {
   const [currentSet, setCurrentSet] = useState<MyFlashcardSet>(flashcardSet);
 
   useEffect(() => {
@@ -10,11 +9,11 @@ export const useEditFlashcardSet = (flashcardSet: MyFlashcardSet) => {
   }, [flashcardSet]);
 
   const handleEditChange = (field: string, value: string) => {
-    setCurrentSet((prevSet: MyFlashcardSet) => ({
+    setCurrentSet((prevSet) => ({
       ...prevSet,
       [field]: value,
     }));
   };
 
   return { currentSet, setCurrentSet, handleEditChange };
-};
+}

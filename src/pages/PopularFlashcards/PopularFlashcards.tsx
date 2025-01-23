@@ -12,7 +12,7 @@ import {
 import { popularFlashcardContent } from "./PopularFlashcardsContent";
 import { useNavigate } from "react-router-dom";
 import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
-import { PopularFlashcard } from "./types/types";
+import { PopularFlashcard } from "../../shared/types/typesPopularFlashcard";
 
 export default function PopularFlashcards() {
   const sortedFlashcards = popularFlashcardContent.sort(

@@ -1,12 +1,5 @@
 import { popularFlashcardContent } from "../../PopularFlashcards/PopularFlashcardsContent";
-
-export type PopularFlashcard = {
-  id: string;
-  title: string;
-  description: string;
-  lastUpdated: string;
-  views: number;
-};
+import { PopularFlashcard } from "../../../shared/types/typesPopularFlashcard";
 
 export const usePopularFlashcards = () => {
   const sortedPopularFlashcards = popularFlashcardContent

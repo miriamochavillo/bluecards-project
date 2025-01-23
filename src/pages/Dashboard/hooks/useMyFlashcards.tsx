@@ -1,12 +1,5 @@
 import { useState, useEffect } from "react";
-
-type MyFlashcardSet = {
-  id: string;
-  title: string;
-  description: string;
-  lastUpdated: string;
-  flashcards: { definition: string; answer: string }[];
-};
+import { MyFlashcardSet } from "../../../shared/types/typesMyFlashcardSet";
 
 export const useMyFlashcards = () => {
   const [latestFlashcardSets, setLatestFlashcardSets] = useState<
