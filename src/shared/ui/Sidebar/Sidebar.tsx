@@ -2,17 +2,10 @@ import { ListItem, List, ListIcon } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import { TbCardsFilled } from "react-icons/tb";
 import { FaHome, FaRegUserCircle } from "react-icons/fa";
+import { useListStyle } from "./hooks/useListStyle";
 
 export default function Sidebar() {
-  const getLinkStyles = ({ isActive }: { isActive: boolean }) => ({
-    color: isActive ? "white" : undefined,
-    backgroundColor: isActive ? "var(--chakra-colors-blue-500)" : "transparent",
-    display: "block",
-    borderRadius: "10px",
-  });
-
-  const getHoverStyles = (isActive: boolean) =>
-    isActive ? {} : { color: "blue.500", bg: "blue.100" };
+  const { getLinkStyles, getHoverStyles } = useListStyle();
 
   return (
     <List color="blue.500" fontSize="1em" fontWeight="bold" spacing={2}>

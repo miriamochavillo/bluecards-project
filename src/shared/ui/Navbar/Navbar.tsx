@@ -1,4 +1,3 @@
-import { CheckIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Button,
@@ -7,25 +6,15 @@ import {
   HStack,
   Spacer,
   Text,
-  useToast,
   AvatarBadge,
   Image,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "./SearchBar/SearchBar";
+import SearchBar from "../SearchBar/SearchBar";
+import { useLogOutToast } from "./hooks/useLogOutToast";
 
 export default function Navbar() {
-  const toast = useToast();
-  const showToast = () => {
-    toast({
-      title: "Logged out",
-      description: "You have been logged out successfully",
-      duration: 1000,
-      isClosable: true,
-      position: "top",
-      icon: <CheckIcon />,
-    });
-  };
+  const { showToast } = useLogOutToast();
   const navigate = useNavigate();
 
   return (
