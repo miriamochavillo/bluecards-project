@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
   Card,
@@ -19,62 +18,21 @@ import {
   PopoverContent,
   PopoverArrow,
   PopoverBody,
-  useToast,
 } from "@chakra-ui/react";
 import { SimpleGrid } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { SlOptionsVertical } from "react-icons/sl";
-import EditFlashcardSet from "./EditFlashcardSet";
+import EditFlashcardSet from "../FlashcardSetEdit/EditFlashcardSet";
 import { FaEdit, FaEye } from "react-icons/fa";
-
-type FlashcardSet = {
-  id: string;
-  title: string;
-  description: string;
-  lastUpdated: string;
-  flashcards: { definition: string; answer: string }[];
-};
+import { useEditModalOpen } from "./hooks/useEditModalOpen";
+import { useFlashcardSetManager } from "./hooks/useFlashcardSetManager";
 
 export default function MyFlashcards() {
-  const toast = useToast();
   const navigate = useNavigate();
-  const [flashcardSets, setFlashcardSets] = useState<FlashcardSet[]>([]);
-  const [isEditOpen, setIsEditOpen] = useState(false);
-  const [currentSet, setCurrentSet] = useState<FlashcardSet | null>(null);
-
-  useEffect(() => {
-    const savedSets = JSON.parse(localStorage.getItem("flashcardSets") || "[]");
-
-    savedSets.sort(
-      (a: FlashcardSet, b: FlashcardSet) =>
-        new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime()
-    );
-    setFlashcardSets(savedSets);
-  }, []);
-
-  const deleteFlashcardSet = (id: string) => {
-    const updatedSets = flashcardSets.filter((set) => set.id !== id);
-    setFlashcardSets(updatedSets);
-    localStorage.setItem("flashcardSets", JSON.stringify(updatedSets));
-    toast({
-      title: "Flashcard set deleted.",
-      description: "The flashcard set has been successfully removed.",
-      status: "error",
-      duration: 5000,
-      isClosable: true,
-      position: "top",
-    });
-  };
-
-  const openEditModal = (set: FlashcardSet) => {
-    setCurrentSet(set);
-    setIsEditOpen(true);
-  };
-
-  const closeEditModal = () => {
-    setCurrentSet(null);
-    setIsEditOpen(false);
-  };
+  const { isEditOpen, currentSet, openEditModal, closeEditModal } =
+    useEditModalOpen();
+  const { flashcardSets, setFlashcardSets, deleteFlashcardSet } =
+    useFlashcardSetManager();
 
   return (
     <>
