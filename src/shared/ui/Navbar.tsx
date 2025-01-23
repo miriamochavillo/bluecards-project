@@ -12,7 +12,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "./SearchBar";
+import SearchBar from "./SearchBar/SearchBar";
 
 export default function Navbar() {
   const toast = useToast();

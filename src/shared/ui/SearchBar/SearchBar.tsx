@@ -8,7 +8,7 @@ import {
   List,
   ListItem,
 } from "@chakra-ui/react";
-import { popularFlashcardContent } from "../../pages/PopularFlashcards/PopularFlashcardsContent";
+import { popularFlashcardContent } from "../../../pages/PopularFlashcards/PopularFlashcardsContent";
 import { useNavigate } from "react-router-dom";
 
 type Flashcard = {
