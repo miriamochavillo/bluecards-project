@@ -1,4 +1,4 @@
-import { MyFlashcardSet, Flashcard } from "../../types/types";
+import { MyFlashcardSet, Flashcard } from "../types/typesEditMyFlashcard";
 
 export const useAddRemoveFlashcard = (
   currentSet: MyFlashcardSet,

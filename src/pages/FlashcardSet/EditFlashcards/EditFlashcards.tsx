@@ -15,84 +15,26 @@ import {
   VStack,
   HStack,
   Button,
-  useToast,
 } from "@chakra-ui/react";
 
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Modal } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
+import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
+import { EditFlashcardSetProps } from "../../EditFlashcards/types/typesEditMyFlashcard";
+import { useSaveEditedSet } from "../../EditFlashcards/hooks/useSaveEditedSet";
+import { useEditFlashcardSet } from "../../EditFlashcards/hooks/useEditFlashcardSet";
+import { useAddRemoveFlashcard } from "../../EditFlashcards/hooks/useAddRemoveFlashcard";
 
-type FlashcardSet = {
-  id: string;
-  title: string;
-  description: string;
-  lastUpdated: string;
-  flashcards: { definition: string; answer: string }[];
-};
-
-type EditFlashcardSetProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  flashcardSet: FlashcardSet;
-  updateFlashcardSet: (updatedSet: FlashcardSet) => void;
-};
-
-export default function EditFlashcardSet({
+export default function EditFlashcards({
   isOpen,
   onClose,
   flashcardSet,
   updateFlashcardSet,
 }: EditFlashcardSetProps) {
-  const toast = useToast();
-  const [currentSet, setCurrentSet] = useState<FlashcardSet>(flashcardSet);
-
-  useEffect(() => {
-    setCurrentSet(flashcardSet);
-  }, [flashcardSet]);
-
-  const handleFlashcardChange = (
-    index: number,
-    field: string,
-    value: string
-  ) => {
-    const updatedFlashcards = [...currentSet.flashcards];
-    updatedFlashcards[index] = {
-      ...updatedFlashcards[index],
-      [field]: value,
-    };
-    setCurrentSet((prevSet) => ({
-      ...prevSet,
-      flashcards: updatedFlashcards,
-    }));
-  };
-
-  const addFlashcard = () => {
-    setCurrentSet((prevSet) => ({
-      ...prevSet,
-      flashcards: [...prevSet.flashcards, { definition: "", answer: "" }],
-    }));
-  };
-
-  const removeFlashcard = (index: number) => {
-    setCurrentSet((prevSet) => ({
-      ...prevSet,
-      flashcards: prevSet.flashcards.filter((_, i) => i !== index),
-    }));
-  };
-
-  const saveEditedSet = () => {
-    updateFlashcardSet(currentSet);
-    toast({
-      title: "Flashcard set updated.",
-      description: "The flashcard set has been successfully updated.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-      position: "top",
-    });
-    onClose();
-  };
+  const saveEditedSet = useSaveEditedSet(updateFlashcardSet, onClose);
+  const { currentSet, setCurrentSet } = useEditFlashcardSet(flashcardSet);
+  const { handleFlashcardChange, addFlashcard, removeFlashcard } =
+    useAddRemoveFlashcard(currentSet, setCurrentSet);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered size="4xl">
@@ -181,7 +123,9 @@ export default function EditFlashcardSet({
           )}
         </ModalBody>
         <ModalFooter>
-          <ButtonPrimary onClick={saveEditedSet}>Save</ButtonPrimary>
+          <ButtonPrimary onClick={() => saveEditedSet(currentSet)}>
+            Save
+          </ButtonPrimary>
           <Button onClick={onClose} ml={3}>
             Cancel
           </Button>

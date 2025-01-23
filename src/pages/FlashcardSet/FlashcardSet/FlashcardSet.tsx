@@ -16,8 +16,8 @@ import {
   MenuButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import EditFlashcards from "./EditFlashcards";
-import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
+import EditFlashcards from "../EditFlashcards/EditFlashcards";
+import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
 
 type Flashcard = {
   definition: string;

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar/Navbar";
-import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar/Sidebar";
 import { Grid, GridItem } from "@chakra-ui/react";
 
 export default function RootLayout() {

@@ -22,10 +22,13 @@ import {
 
 import { DeleteIcon } from "@chakra-ui/icons";
 import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
-import { useEditFlashcardSet } from "./hooks/useEditFlashcardSet";
-import { useAddRemoveFlashcard } from "./hooks/useAddRemoveFlashcard";
-import { EditFlashcardSetProps, Flashcard } from "../types/types";
-import { useSaveEditedSet } from "./hooks/useSaveEditedSet";
+import { useEditFlashcardSet } from "../../EditFlashcards/hooks/useEditFlashcardSet";
+import { useAddRemoveFlashcard } from "../../EditFlashcards/hooks/useAddRemoveFlashcard";
+import {
+  EditFlashcardSetProps,
+  Flashcard,
+} from "../../EditFlashcards/types/typesEditMyFlashcard";
+import { useSaveEditedSet } from "../../EditFlashcards/hooks/useSaveEditedSet";
 
 export default function EditFlashcardSet({
   isOpen,

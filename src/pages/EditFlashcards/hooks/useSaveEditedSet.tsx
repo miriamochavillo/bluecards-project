@@ -1,5 +1,5 @@
 import { useToast } from "@chakra-ui/react";
-import { MyFlashcardSet } from "../../types/types";
+import { MyFlashcardSet } from "../types/typesEditMyFlashcard";
 
 export function useSaveEditedSet(
   updateFlashcardSet: (set: MyFlashcardSet) => void,
