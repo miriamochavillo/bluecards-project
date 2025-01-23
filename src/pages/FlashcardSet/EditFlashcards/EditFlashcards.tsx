@@ -6,6 +6,7 @@ import {
   IconButton,
   FormLabel,
   Input,
+  Modal,
   ModalCloseButton,
   ModalHeader,
   ModalContent,
@@ -15,15 +16,16 @@ import {
   VStack,
   HStack,
   Button,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 
 import { DeleteIcon } from "@chakra-ui/icons";
-import { Modal } from "@chakra-ui/react";
-import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
 import { EditFlashcardSetProps } from "../../../shared/types/typesEditFlashcardSet";
 import { useAddRemoveFlashcard } from "../../../shared/hooks/useAddRemoveFlashcard";
 import { useEditFlashcardSet } from "../../../shared/hooks/useEditFlashcardSet";
 import { useSaveEditedSet } from "../../../shared/hooks/useSaveEditedSet";
+import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
+import { useValidation } from "../../../shared/hooks/useValidation";
 
 export default function EditFlashcards({
   isOpen,
@@ -35,6 +37,10 @@ export default function EditFlashcards({
   const { currentSet, setCurrentSet } = useEditFlashcardSet(flashcardSet);
   const { handleFlashcardChange, addFlashcard, removeFlashcard } =
     useAddRemoveFlashcard(currentSet, setCurrentSet);
+  const { areFlashcardsValid, handleSave } = useValidation(
+    currentSet,
+    saveEditedSet
+  );
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered size="4xl">
@@ -70,7 +76,10 @@ export default function EditFlashcards({
                     </Flex>
                   </HStack>
                   <HStack>
-                    <FormControl isRequired>
+                    <FormControl
+                      isRequired
+                      isInvalid={!flashcard.definition.trim()}
+                    >
                       <FormLabel
                         fontSize="sm"
                         fontWeight="bold"
@@ -90,8 +99,14 @@ export default function EditFlashcards({
                           )
                         }
                       />
+                      <FormErrorMessage>
+                        Definition is required.
+                      </FormErrorMessage>
                     </FormControl>
-                    <FormControl isRequired>
+                    <FormControl
+                      isRequired
+                      isInvalid={!flashcard.answer.trim()}
+                    >
                       <FormLabel
                         fontSize="sm"
                         fontWeight="bold"
@@ -107,6 +122,7 @@ export default function EditFlashcards({
                           handleFlashcardChange(index, "answer", e.target.value)
                         }
                       />
+                      <FormErrorMessage>Answer is required.</FormErrorMessage>
                     </FormControl>
                   </HStack>
                 </Box>
@@ -123,7 +139,7 @@ export default function EditFlashcards({
           )}
         </ModalBody>
         <ModalFooter>
-          <ButtonPrimary onClick={() => saveEditedSet(currentSet)}>
+          <ButtonPrimary onClick={handleSave} isDisabled={!areFlashcardsValid}>
             Save
           </ButtonPrimary>
           <Button onClick={onClose} ml={3}>
