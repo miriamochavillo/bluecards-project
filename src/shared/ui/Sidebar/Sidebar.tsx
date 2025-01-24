@@ -1,7 +1,7 @@
 import { ListItem, List, ListIcon } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import { TbCardsFilled } from "react-icons/tb";
-import { FaHome, FaRegUserCircle } from "react-icons/fa";
+import { FaHeart, FaHome, FaRegUserCircle } from "react-icons/fa";
 import { useListStyle } from "./hooks/useListStyle";
 
 export default function Sidebar() {
@@ -32,6 +32,19 @@ export default function Sidebar() {
           >
             <ListIcon as={TbCardsFilled} />
             Flashcards
+          </ListItem>
+        )}
+      </NavLink>
+      <NavLink to="/favorites" style={getLinkStyles}>
+        {({ isActive }) => (
+          <ListItem
+            color={`inherit`}
+            padding="10px"
+            borderRadius="10px"
+            _hover={getHoverStyles(isActive)}
+          >
+            <ListIcon as={FaHeart} />
+            Favorites
           </ListItem>
         )}
       </NavLink>

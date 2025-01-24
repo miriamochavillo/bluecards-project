@@ -4,4 +4,5 @@ export type PopularFlashcard = {
   description: string;
   lastUpdated: string;
   views: number;
+  favorite?: boolean;
 };

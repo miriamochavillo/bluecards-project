@@ -15,6 +15,7 @@ import MyFlashcards from "../pages/MyFlashcards/FlashcardMenu/MyFlashcards";
 import FlashcardSet from "../pages/FlashcardSet/FlashcardSet/FlashcardSet";
 import PopularFlashcards from "../pages/PopularFlashcards/PopularFlashcards";
 import PopularFlashcardSet from "../pages/PopularFlashcards/PopularFlashcardSet";
+import Favorites from "../pages/Favorites/Favorites";
 // router and routes
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
       />
       <Route path="/flashcard-set" element={<FlashcardSet />} />
       <Route path="/my-flashcards/:setId" element={<FlashcardSet />} />
+      <Route path="/favorites" element={<Favorites />} />
     </Route>
   )
 );

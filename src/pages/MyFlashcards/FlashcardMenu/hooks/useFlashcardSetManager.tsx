@@ -30,5 +30,18 @@ export const useFlashcardSetManager = () => {
     });
   };
 
-  return { flashcardSets, setFlashcardSets, deleteFlashcardSet };
+  const toggleFavorite = (id: string) => {
+    const updatedSets = flashcardSets.map((set) =>
+      set.id === id ? { ...set, favorite: !set.favorite } : set
+    );
+    setFlashcardSets(updatedSets);
+    localStorage.setItem("flashcardSets", JSON.stringify(updatedSets));
+  };
+
+  return {
+    flashcardSets,
+    setFlashcardSets,
+    deleteFlashcardSet,
+    toggleFavorite,
+  };
 };

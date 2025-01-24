@@ -23,7 +23,7 @@ import { SimpleGrid } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { SlOptionsVertical } from "react-icons/sl";
 import EditFlashcardSet from "../FlashcardSetEdit/EditFlashcardSet";
-import { FaEdit, FaEye } from "react-icons/fa";
+import { FaEdit, FaEye, FaHeart } from "react-icons/fa";
 import { useEditModalOpen } from "./hooks/useEditModalOpen";
 import { useFlashcardSetManager } from "./hooks/useFlashcardSetManager";
 
@@ -34,6 +34,14 @@ export default function MyFlashcards() {
   const { flashcardSets, setFlashcardSets, deleteFlashcardSet } =
     useFlashcardSetManager();
 
+  const toggleFavorite = (id: string) => {
+    setFlashcardSets((prevSets) =>
+      prevSets.map((set) =>
+        set.id === id ? { ...set, favorite: !set.favorite } : set
+      )
+    );
+    localStorage.setItem("flashcardSets", JSON.stringify(flashcardSets));
+  };
   return (
     <>
       <SimpleGrid spacing={8} maxW="1200px" mx="auto" p={6}>
@@ -93,6 +101,17 @@ export default function MyFlashcards() {
                       {set.title}
                     </Heading>
                     <Spacer />
+                    <IconButton
+                      icon={<FaHeart />}
+                      aria-label="Toggle Favorite"
+                      size="sm"
+                      color={set.favorite ? "pink.300" : "blue.800"}
+                      onClick={() => toggleFavorite(set.id)}
+                      variant="ghost"
+                      _hover={{
+                        bg: "transparent",
+                      }}
+                    />
                     <HStack spacing={2}>
                       <Menu placement="bottom-end">
                         <MenuButton
