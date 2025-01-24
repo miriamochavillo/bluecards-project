@@ -12,6 +12,11 @@ import {
   HStack,
   Divider,
   IconButton,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverBody,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
@@ -55,26 +60,36 @@ export default function Dashboard() {
               _hover={{ transform: "scale(1.05)", boxShadow: "2xl" }}
             >
               <CardHeader bg="blue.700" borderTopRadius="lg">
-                <HStack spacing={3}>
+                <HStack>
                   <Heading fontSize="lg" color="white">
                     {popularFlashcard.title}
                   </Heading>
                   <Spacer />
-                  <IconButton
-                    icon={<FaEye />}
-                    size="xs"
-                    color="blue.600"
-                    bg="transparent"
-                    aria-label="View"
-                    onClick={() =>
-                      navigate(`/popular-flashcards/${popularFlashcard.id}`)
-                    }
-                    _hover={{
-                      color: "white",
-                      bg: "transparent",
-                      cursor: "pointer",
-                    }}
-                  />
+                  <Popover trigger="hover" placement="bottom-start">
+                    <PopoverTrigger>
+                      <IconButton
+                        icon={<FaEye />}
+                        size="md"
+                        color="white"
+                        bg="transparent"
+                        aria-label="View"
+                        rounded="full"
+                        onClick={() =>
+                          navigate(`/popular-flashcards/${popularFlashcard.id}`)
+                        }
+                        _hover={{
+                          bg: "blue.600",
+                          cursor: "pointer",
+                        }}
+                      />
+                    </PopoverTrigger>
+                    <PopoverContent width="auto" alignContent="center">
+                      <PopoverArrow />
+                      <PopoverBody fontSize="sm" color="blue.500">
+                        View
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
                 </HStack>
               </CardHeader>
               <CardBody>
@@ -116,24 +131,34 @@ export default function Dashboard() {
               _hover={{ transform: "scale(1.05)", boxShadow: "2xl" }}
             >
               <CardHeader bg="blue.500" borderTopRadius="lg">
-                <HStack spacing={3}>
+                <HStack>
                   <Heading fontSize="lg" color="white">
                     {set.title}
                   </Heading>
                   <Spacer />
-                  <IconButton
-                    icon={<FaEye />}
-                    size="xs"
-                    color="blue.600"
-                    bg="transparent"
-                    aria-label="View"
-                    onClick={() => navigate(`/my-flashcards/${set.id}`)}
-                    _hover={{
-                      color: "white",
-                      bg: "transparent",
-                      cursor: "pointer",
-                    }}
-                  />
+                  <Popover trigger="hover" placement="bottom-start">
+                    <PopoverTrigger>
+                      <IconButton
+                        icon={<FaEye />}
+                        size="sm"
+                        color="white"
+                        bg="transparent"
+                        aria-label="View"
+                        rounded="full"
+                        onClick={() => navigate(`/my-flashcards/${set.id}`)}
+                        _hover={{
+                          bg: "blue.400",
+                          cursor: "pointer",
+                        }}
+                      />
+                    </PopoverTrigger>
+                    <PopoverContent width="auto" alignContent="center">
+                      <PopoverArrow />
+                      <PopoverBody fontSize="sm" color="blue.500">
+                        View
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
                 </HStack>
               </CardHeader>
               <CardBody>
