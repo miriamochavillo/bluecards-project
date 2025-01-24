@@ -20,9 +20,10 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { Modal } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 
 interface FlashcardSet {
   id: string;
@@ -195,9 +196,9 @@ export default function EditFlashcardSet({
                 </Box>
               ))}
               <Button
-                mt={4}
-                leftIcon={<AddIcon />}
+                variant="outline"
                 colorScheme="blue"
+                _hover={{ bg: "white", border: "2px solid" }}
                 onClick={addFlashcard}
               >
                 Add Flashcard
@@ -206,9 +207,7 @@ export default function EditFlashcardSet({
           )}
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" onClick={saveEditedSet}>
-            Save
-          </Button>
+          <ButtonPrimary onClick={saveEditedSet}>Save</ButtonPrimary>
           <Button onClick={onClose} ml={3}>
             Cancel
           </Button>

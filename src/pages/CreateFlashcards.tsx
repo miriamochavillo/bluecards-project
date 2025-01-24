@@ -16,20 +16,20 @@ import {
   useToast,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { AddIcon, DeleteIcon, DragHandleIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import ButtonPrimary from "../shared/ui/components/ButtonPrimary";
 
 export default function CreateFlashcards() {
-  // Generate a unique ID for the flashcard set
   const flashcardSetId = uuidv4();
 
-  // State variables for title, description, flashcards, submission status, and toast notifications
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [flashcards, setFlashcards] = useState([
     { definition: "", answer: "" },
   ]);
+
   const navigate = useNavigate();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const toast = useToast();
@@ -188,13 +188,6 @@ export default function CreateFlashcards() {
                 </Heading>
                 <Flex>
                   <IconButton
-                    aria-label="Drag Flashcard"
-                    icon={<DragHandleIcon />}
-                    size="sm"
-                    colorScheme="teal"
-                    mr={2}
-                  />
-                  <IconButton
                     aria-label="Remove Flashcard"
                     icon={<DeleteIcon />}
                     size="sm"
@@ -241,28 +234,19 @@ export default function CreateFlashcards() {
               </HStack>
             </Box>
           ))}
+          <Button
+            variant="outline"
+            colorScheme="blue"
+            _hover={{ bg: "white", border: "2px solid" }}
+            onClick={addFlashcard}
+          >
+            Add Flashcard
+          </Button>
         </VStack>
-
-        <Button
-          mt={4}
-          leftIcon={<AddIcon />}
-          colorScheme="blue"
-          onClick={addFlashcard}
-        >
-          Add Flashcard
-        </Button>
       </Box>
-
-      <Button
-        mt={6}
-        colorScheme="teal"
-        size="lg"
-        w="100%"
-        _hover={{ bg: "blue.800" }}
-        onClick={saveFlashcardSet}
-      >
+      <ButtonPrimary onClick={saveFlashcardSet}>
         Save Flashcard Set
-      </Button>
+      </ButtonPrimary>
     </SimpleGrid>
   );
 }

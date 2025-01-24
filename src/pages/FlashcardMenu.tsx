@@ -7,11 +7,11 @@ import {
   SimpleGrid,
   HStack,
   Divider,
-  Button,
   CardFooter,
 } from "@chakra-ui/react";
 import { AddIcon, ViewIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+import ButtonPrimary from "../shared/ui/components/ButtonPrimary";
 
 export default function FlashcardMenu() {
   const navigate = useNavigate();
@@ -60,16 +60,12 @@ export default function FlashcardMenu() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Button
+          <ButtonPrimary
             rightIcon={<ViewIcon />}
-            colorScheme="blue"
-            variant="solid"
-            size="lg"
-            _hover={{ bg: "blue.800", transform: "scale(1.05)" }}
             onClick={() => navigate("/my-flashcards")}
           >
             View
-          </Button>
+          </ButtonPrimary>
         </CardFooter>
       </Card>
 
@@ -105,16 +101,12 @@ export default function FlashcardMenu() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Button
+          <ButtonPrimary
             rightIcon={<AddIcon />}
-            colorScheme="blue"
-            variant="solid"
-            size="lg"
-            _hover={{ bg: "blue.800", transform: "scale(1.05)" }}
             onClick={() => navigate("/create-flashcards")}
           >
             Create
-          </Button>
+          </ButtonPrimary>
         </CardFooter>
       </Card>
     </SimpleGrid>
