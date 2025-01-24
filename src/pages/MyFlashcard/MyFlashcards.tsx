@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
+import { AddIcon } from "@chakra-ui/icons";
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
@@ -10,6 +11,7 @@ import {
   IconButton,
   Menu,
   MenuButton,
+  MenuDivider,
   MenuItem,
   MenuList,
   Spacer,
@@ -25,7 +27,7 @@ import { SimpleGrid } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { SlOptionsVertical } from "react-icons/sl";
 import EditFlashcardSet from "./EditFlashcardSet";
-import { FaEdit, FaEye } from "react-icons/fa";
+
 interface FlashcardSet {
   id: string;
   title: string;
@@ -42,12 +44,8 @@ export default function MyFlashcards() {
   const [currentSet, setCurrentSet] = useState<FlashcardSet | null>(null);
 
   useEffect(() => {
+    // Fetch flashcard sets from localStorage
     const savedSets = JSON.parse(localStorage.getItem("flashcardSets") || "[]");
-
-    savedSets.sort(
-      (a: FlashcardSet, b: FlashcardSet) =>
-        new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime()
-    );
     setFlashcardSets(savedSets);
   }, []);
 
@@ -116,57 +114,46 @@ export default function MyFlashcards() {
             {flashcardSets.map((set) => (
               <Card
                 key={set.id}
-                bg="blue.50"
+                bg="white"
+                border="2px solid"
+                borderColor="blue.200"
                 borderRadius="lg"
                 boxShadow="lg"
                 transition="all 0.3s ease-in-out"
-                _hover={{ transform: "scale(1.05)", boxShadow: "2xl" }}
+                _hover={{
+                  transform: "scale(1.05)",
+                  boxShadow: "2xl",
+                  bg: "blue.100",
+                }}
               >
-                <CardHeader bg="blue.500" borderTopRadius="lg">
+                <CardHeader>
                   <HStack spacing={3}>
-                    <Heading
-                      fontSize="lg"
-                      color="white"
-                      cursor="pointer"
-                      onClick={() => navigate(`/my-flashcards/${set.id}`)}
-                      _hover={{ textDecoration: "underline", color: "white" }}
-                    >
+                    <Heading fontSize="lg" color="blue.700">
                       {set.title}
                     </Heading>
                     <Spacer />
                     <HStack spacing={2}>
+                      <Button
+                        size="sm"
+                        colorScheme="blue"
+                        onClick={() => navigate(`/my-flashcards/${set.id}`)}
+                      >
+                        View
+                      </Button>
                       <Menu placement="bottom-end">
                         <MenuButton
                           as={IconButton}
                           size="sm"
                           icon={<SlOptionsVertical />}
-                          colorScheme="blue"
+                          colorScheme="teal"
                           aria-label="Options"
-                          bg="transparent"
                         />
-                        <MenuList
-                          sx={{
-                            fontSize: "sm",
-                            color: "blue.700",
-                          }}
-                          minWidth="100px"
-                        >
-                          <MenuItem
-                            icon={<FaEye />}
-                            onClick={() => navigate(`/my-flashcards/${set.id}`)}
-                          >
-                            View
-                          </MenuItem>
-                          <MenuItem
-                            icon={<FaEdit />}
-                            onClick={() => openEditModal(set)}
-                          >
+                        <MenuList>
+                          <MenuItem onClick={() => openEditModal(set)}>
                             Edit
                           </MenuItem>
-                          <MenuItem
-                            icon={<DeleteIcon />}
-                            onClick={() => deleteFlashcardSet(set.id)}
-                          >
+                          <MenuDivider />
+                          <MenuItem onClick={() => deleteFlashcardSet(set.id)}>
                             Delete
                           </MenuItem>
                         </MenuList>
