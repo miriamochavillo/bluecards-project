@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MyFlashcardSet } from "../types/typesMyFlashcardSet";
+import { MyFlashcardSet } from "../../types/typesMyFlashcardSet";
 
 export function useEditFlashcardSet(flashcardSet: MyFlashcardSet) {
   const [currentSet, setCurrentSet] = useState<MyFlashcardSet>(flashcardSet);

@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -16,87 +15,26 @@ import {
   MenuButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { useFlipMyFlashcard } from "./hooks/useFlipMyFlashcard";
+import { useMyFlashcardNavigation } from "./hooks/useMyFlashcardNavigation";
+import { useEditModal } from "./hooks/useEditModal";
+import useFlashcardSetInput from "./hooks/useFetchMyFlashcard";
 import EditFlashcards from "../EditFlashcards/EditFlashcards";
 import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
 
-type Flashcard = {
-  definition: string;
-  answer: string;
-};
-
-type FlashcardSet = {
-  id: string;
-  title: string;
-  description: string;
-  lastUpdated: string;
-  flashcards: {
-    definition: string;
-    answer: string;
-  }[];
-};
-
 export default function FlashcardSet() {
-  const { setId } = useParams();
-  const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [title, setTitle] = useState("");
-
-  useEffect(() => {
-    // Fetch flashcard set from localStorage using setId
-    const savedSets = JSON.parse(localStorage.getItem("flashcardSets") || "[]");
-    const currentSet = savedSets.find((set: FlashcardSet) => set.id === setId);
-    if (currentSet) {
-      setFlashcards(currentSet.flashcards);
-      setTitle(currentSet.title);
-    }
-  }, [setId]);
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % flashcards.length);
-    setIsFlipped(false);
-  };
-
-  const handlePrevious = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + flashcards.length) % flashcards.length
-    );
-    setIsFlipped(false);
-  };
-
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
-  };
-
-  const [isEditOpen, setIsEditOpen] = useState(false);
-  const [currentSet, setCurrentSet] = useState<FlashcardSet | null>(null);
-
-  const openEditModal = () => {
-    setCurrentSet({
-      id: setId || "",
-      title,
-      flashcards,
-      description: "", // Add description if needed
-      lastUpdated: new Date().toISOString(),
-    });
-    setIsEditOpen(true);
-  };
-
-  const closeEditModal = () => {
-    setIsEditOpen(false);
-  };
-
-  const updateFlashcardSet = (updatedSet: FlashcardSet) => {
-    const savedSets = JSON.parse(localStorage.getItem("flashcardSets") || "[]");
-    const updatedSets = savedSets.map((set: FlashcardSet) =>
-      set.id === updatedSet.id ? updatedSet : set
-    );
-    localStorage.setItem("flashcardSets", JSON.stringify(updatedSets));
-    setFlashcards(updatedSet.flashcards);
-    setTitle(updatedSet.title);
-  };
-
   const navigate = useNavigate();
+  const { isFlipped, handleFlip } = useFlipMyFlashcard();
+  const { title, flashcards } = useFlashcardSetInput();
+  const { currentIndex, handleNext, handlePrevious } =
+    useMyFlashcardNavigation(flashcards);
+  const {
+    currentSet,
+    isEditOpen,
+    openEditModal,
+    closeEditModal,
+    updateFlashcardSet,
+  } = useEditModal();
   return (
     <>
       <SimpleGrid spacing={8} maxW="800px" mx="auto" p={6}>

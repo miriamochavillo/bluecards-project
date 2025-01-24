@@ -1,4 +1,4 @@
-import { MyFlashcardSet } from "../types/typesMyFlashcardSet";
+import { MyFlashcardSet } from "../../types/typesMyFlashcardSet";
 
 export function useValidation(
   currentSet: MyFlashcardSet,

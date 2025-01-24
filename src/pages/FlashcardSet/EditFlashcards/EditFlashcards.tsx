@@ -21,11 +21,11 @@ import {
 
 import { DeleteIcon } from "@chakra-ui/icons";
 import { EditFlashcardSetProps } from "../../../shared/types/typesEditFlashcardSet";
-import { useAddRemoveFlashcard } from "../../../shared/hooks/useAddRemoveFlashcard";
-import { useEditFlashcardSet } from "../../../shared/hooks/useEditFlashcardSet";
-import { useSaveEditedSet } from "../../../shared/hooks/useSaveEditedSet";
+import { useAddRemoveFlashcard } from "../../../shared/hooks/EditFlashcardSet/useAddRemoveFlashcard";
+import { useEditFlashcardSet } from "../../../shared/hooks/EditFlashcardSet/useEditFlashcardSet";
+import { useSaveEditedSet } from "../../../shared/hooks/EditFlashcardSet/useSaveEditedSet";
 import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
-import { useValidation } from "../../../shared/hooks/useValidation";
+import { useValidation } from "../../../shared/hooks/EditFlashcardSet/useValidation";
 
 export default function EditFlashcards({
   isOpen,
