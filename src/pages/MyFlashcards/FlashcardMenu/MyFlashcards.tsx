@@ -22,10 +22,11 @@ import {
 import { SimpleGrid } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { SlOptionsVertical } from "react-icons/sl";
-import EditFlashcardSet from "../FlashcardSetEdit/EditFlashcardSet";
 import { FaEdit, FaEye, FaHeart } from "react-icons/fa";
 import { useEditModalOpen } from "./hooks/useEditModalOpen";
 import { useFlashcardSetManager } from "./hooks/useFlashcardSetManager";
+import { useToggleFavorite } from "./hooks/useToggleFavorite";
+import EditFlashcardSet from "../FlashcardSetEdit/EditFlashcardSet";
 
 export default function MyFlashcards() {
   const navigate = useNavigate();
@@ -34,14 +35,8 @@ export default function MyFlashcards() {
   const { flashcardSets, setFlashcardSets, deleteFlashcardSet } =
     useFlashcardSetManager();
 
-  const toggleFavorite = (id: string) => {
-    setFlashcardSets((prevSets) =>
-      prevSets.map((set) =>
-        set.id === id ? { ...set, favorite: !set.favorite } : set
-      )
-    );
-    localStorage.setItem("flashcardSets", JSON.stringify(flashcardSets));
-  };
+  const toggleFavorite = useToggleFavorite(setFlashcardSets);
+
   return (
     <>
       <SimpleGrid spacing={8} maxW="1200px" mx="auto" p={6}>

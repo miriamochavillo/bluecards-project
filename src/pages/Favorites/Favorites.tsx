@@ -8,23 +8,40 @@ import {
   CardBody,
   CardFooter,
   Text,
-  Menu,
-  MenuList,
-  MenuItem,
   IconButton,
-  MenuButton,
+  Popover,
+  PopoverContent,
+  PopoverBody,
+  PopoverArrow,
+  PopoverTrigger,
 } from "@chakra-ui/react";
-import { FaHeart, FaEye, FaEdit } from "react-icons/fa";
-import { SlOptionsVertical } from "react-icons/sl";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { FaEye, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useFlashcardSetManager } from "../MyFlashcards/FlashcardMenu/hooks/useFlashcardSetManager";
+import { useEffect, useState } from "react";
+import { MyFlashcardSet } from "../../shared/types/typesMyFlashcardSet";
 
 export default function Favorites() {
   const navigate = useNavigate();
-  const { flashcardSets, toggleFavorite, deleteFlashcardSet } =
-    useFlashcardSetManager();
+  const [flashcardSets, setFlashcardSets] = useState<MyFlashcardSet[]>([]);
 
+  // Function to toggle the favorite status of a flashcard set
+  const toggleFavorite = (id: string) => {
+    const updatedSets = flashcardSets.map((set) =>
+      set.id === id ? { ...set, favorite: !set.favorite } : set
+    );
+    setFlashcardSets(updatedSets);
+    localStorage.setItem("flashcardSets", JSON.stringify(updatedSets));
+  };
+
+  // Effect hook to load flashcard sets from local storage when the component mounts
+  useEffect(() => {
+    const storedSets = JSON.parse(
+      localStorage.getItem("flashcardSets") || "[]"
+    );
+    setFlashcardSets(storedSets);
+  }, []);
+
+  // Filter the flashcard sets to only include those marked as favorite
   const favoriteSets = flashcardSets.filter((set) => set.favorite);
 
   return (
@@ -72,46 +89,29 @@ export default function Favorites() {
                       bg: "transparent",
                     }}
                   />
-                  <HStack spacing={2}>
-                    <Menu placement="bottom-end">
-                      <MenuButton
-                        as={IconButton}
+                  <Popover trigger="hover" placement="bottom-start">
+                    <PopoverTrigger>
+                      <IconButton
+                        icon={<FaEye />}
                         size="sm"
-                        icon={<SlOptionsVertical />}
-                        colorScheme="blue"
-                        aria-label="Options"
+                        color="white"
                         bg="transparent"
-                      />
-                      <MenuList
-                        sx={{
-                          fontSize: "sm",
-                          color: "blue.700",
+                        aria-label="View"
+                        rounded="full"
+                        onClick={() => navigate(`/my-flashcards/${set.id}`)}
+                        _hover={{
+                          bg: "blue.400",
+                          cursor: "pointer",
                         }}
-                        minWidth="100px"
-                      >
-                        <MenuItem
-                          icon={<FaEye />}
-                          onClick={() => navigate(`/my-flashcards/${set.id}`)}
-                        >
-                          View
-                        </MenuItem>
-                        <MenuItem
-                          icon={<FaEdit />}
-                          onClick={() =>
-                            navigate(`/my-flashcards/${set.id}/edit`)
-                          }
-                        >
-                          Edit
-                        </MenuItem>
-                        <MenuItem
-                          icon={<DeleteIcon />}
-                          onClick={() => deleteFlashcardSet(set.id)}
-                        >
-                          Delete
-                        </MenuItem>
-                      </MenuList>
-                    </Menu>
-                  </HStack>
+                      />
+                    </PopoverTrigger>
+                    <PopoverContent width="auto" alignContent="center">
+                      <PopoverArrow />
+                      <PopoverBody fontSize="sm" color="blue.500">
+                        View
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
                 </HStack>
               </CardHeader>
               <CardBody>
