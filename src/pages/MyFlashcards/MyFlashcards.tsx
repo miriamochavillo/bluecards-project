@@ -83,7 +83,11 @@ export default function MyFlashcards() {
                 borderRadius="lg"
                 boxShadow="lg"
                 transition="all 0.3s ease-in-out"
-                _hover={{ transform: "scale(1.05)", boxShadow: "2xl" }}
+                _hover={{
+                  transform: "scale(1.05)",
+                  boxShadow: "2xl",
+                  "& > div:first-of-type": { bg: "blue.700" },
+                }}
               >
                 <CardHeader bg="blue.500" borderTopRadius="lg">
                   <HStack spacing={3}>

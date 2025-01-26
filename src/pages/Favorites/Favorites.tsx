@@ -59,7 +59,11 @@ export default function Favorites() {
               borderRadius="lg"
               boxShadow="lg"
               transition="all 0.3s ease-in-out"
-              _hover={{ transform: "scale(1.05)", boxShadow: "2xl" }}
+              _hover={{
+                transform: "scale(1.05)",
+                boxShadow: "2xl",
+                "& > div:first-of-type": { bg: "blue.700" },
+              }}
             >
               <CardHeader bg="blue.500" borderTopRadius="lg">
                 <HStack spacing={3}>
@@ -73,17 +77,6 @@ export default function Favorites() {
                     {set.title}
                   </Heading>
                   <Spacer />
-                  {/* <IconButton
-                    icon={<FaHeart />}
-                    aria-label="Toggle Favorite"
-                    size="sm"
-                    color={set.favorite ? "pink.300" : "blue.800"}
-                    onClick={() => toggleFavorite(set.id)}
-                    variant="ghost"
-                    _hover={{
-                      bg: "transparent",
-                    }}
-                  /> */}
                   <FavoriteButton set={set} toggleFavorite={toggleFavorite} />
                   <ViewButton setId={set.id} />
                 </HStack>
