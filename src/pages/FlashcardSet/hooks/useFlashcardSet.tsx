@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { MyFlashcardSet } from "../../../../shared/types/typesMyFlashcardSet";
-import { Flashcard } from "../../../../shared/types/typesFlashcard";
+import { MyFlashcardSet } from "../../../shared/types/typesMyFlashcardSet";
+import { Flashcard } from "../../../shared/types/typesFlashcard";
 
 export function useFlashcardSet(setId: string | undefined) {
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
 
   useEffect(() => {
@@ -14,8 +15,16 @@ export function useFlashcardSet(setId: string | undefined) {
     if (currentSet) {
       setFlashcards(currentSet.flashcards);
       setTitle(currentSet.title);
+      setDescription(currentSet.description);
     }
   }, [setId]);
 
-  return { flashcards, title, setFlashcards, setTitle };
+  return {
+    flashcards,
+    title,
+    setFlashcards,
+    setTitle,
+    description,
+    setDescription,
+  };
 }

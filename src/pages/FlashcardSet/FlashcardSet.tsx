@@ -15,22 +15,21 @@ import {
   MenuButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import EditFlashcards from "../EditFlashcards/EditFlashcards";
-import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
-import { MyFlashcardSet } from "../../../shared/types/typesMyFlashcardSet";
-import { useEditModal } from "./hooks/useEditModal";
+import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
+import { MyFlashcardSet } from "../../shared/types/typesMyFlashcardSet";
 import { useFlashcardSet } from "./hooks/useFlashcardSet";
 import { useFlashcardNavigation } from "./hooks/useFlashcardNavigation";
-
+import EditFlashcardSet from "../FlashcardSetEdit/EditFlashcardSet";
+import { useEditModalOpen } from "../MyFlashcards/hooks/useEditModalOpen";
 // Main component for displaying a flashcard set
 export default function FlashcardSet() {
   const { setId } = useParams();
-  const { flashcards, title, setFlashcards, setTitle } = useFlashcardSet(setId);
+  const { flashcards, title, setFlashcards, setTitle, description } =
+    useFlashcardSet(setId);
   const { currentIndex, isFlipped, handleFlip, handleNext, handlePrevious } =
     useFlashcardNavigation(flashcards);
   const { isEditOpen, currentSet, openEditModal, closeEditModal } =
-    useEditModal(setId, title, flashcards);
-
+    useEditModalOpen();
   const navigate = useNavigate();
 
   // Function to update the flashcard set in localStorage
@@ -66,7 +65,20 @@ export default function FlashcardSet() {
               aria-label="Options"
             />
             <MenuList sx={{ fontSize: "sm" }}>
-              <MenuItem onClick={openEditModal}>Edit Flashcards</MenuItem>
+              <MenuItem
+                onClick={() =>
+                  openEditModal({
+                    id: setId || "",
+                    title,
+                    flashcards,
+                    description,
+                    lastUpdated: new Date().toLocaleString(),
+                    favorite: false,
+                  })
+                }
+              >
+                Edit Flashcards
+              </MenuItem>
               <MenuDivider />
               <MenuItem onClick={() => navigate("/my-flashcards")}>
                 Return to My Flashcards
@@ -122,7 +134,7 @@ export default function FlashcardSet() {
         )}
       </SimpleGrid>
       {currentSet && (
-        <EditFlashcards
+        <EditFlashcardSet
           isOpen={isEditOpen}
           onClose={closeEditModal}
           flashcardSet={currentSet}

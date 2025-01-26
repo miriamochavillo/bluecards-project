@@ -26,8 +26,8 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import { useEditModalOpen } from "./hooks/useEditModalOpen";
 import { useFlashcardSetManager } from "./hooks/useFlashcardSetManager";
 import { useToggleFavorite } from "./hooks/useToggleFavorite";
+import FavoriteButton from "../../shared/ui/components/FavoriteButton";
 import EditFlashcardSet from "../FlashcardSetEdit/EditFlashcardSet";
-import FavoriteButton from "../../../shared/ui/components/FavoriteButton";
 
 export default function MyFlashcards() {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { MyFlashcardSet } from "../../../../shared/types/typesMyFlashcardSet";
-export const useEditModalOpen = () => {
+import { MyFlashcardSet } from "../../../shared/types/typesMyFlashcardSet";
+export const useEditModal = () => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [currentSet, setCurrentSet] = useState<MyFlashcardSet | null>(null);
 

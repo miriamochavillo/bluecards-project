@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Flashcard } from "../../../../shared/types/typesFlashcard";
+import { Flashcard } from "../../../shared/types/typesFlashcard";
 
 export function useFlashcardNavigation(flashcards: Flashcard[]) {
   const [currentIndex, setCurrentIndex] = useState(0);

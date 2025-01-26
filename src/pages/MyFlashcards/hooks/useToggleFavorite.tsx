@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useToast } from "@chakra-ui/react";
-import { MyFlashcardSet } from "../../../../shared/types/typesMyFlashcardSet";
+import { MyFlashcardSet } from "../../../shared/types/typesMyFlashcardSet";
 import { Dispatch, SetStateAction } from "react";
 
 export const useToggleFavorite = (
