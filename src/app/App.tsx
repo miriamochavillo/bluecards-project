@@ -12,7 +12,7 @@ import Profile from "../pages/Profile";
 import FlashcardMenu from "../pages/FlashcardMenu";
 import CreateFlashcards from "../pages/CreateFlashcards/CreateFlashcards";
 import MyFlashcards from "../pages/MyFlashcards/FlashcardMenu/MyFlashcards";
-import FlashcardSet from "../pages/FlashcardSet/FlashcardSet/FlashcardSet";
+import FlashcardSet from "../pages/FlashcardSetModule/FlashcardSet/FlashcardSet";
 import PopularFlashcards from "../pages/PopularFlashcards/PopularFlashcards";
 import PopularFlashcardSet from "../pages/PopularFlashcards/PopularFlashcardSet";
 import Favorites from "../pages/Favorites/Favorites";

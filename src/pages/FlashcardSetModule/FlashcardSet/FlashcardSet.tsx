@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -15,26 +15,35 @@ import {
   MenuButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { useFlipMyFlashcard } from "./hooks/useFlipMyFlashcard";
-import { useMyFlashcardNavigation } from "./hooks/useMyFlashcardNavigation";
-import { useEditModal } from "./hooks/useEditModal";
-import useFlashcardSetInput from "./hooks/useFetchMyFlashcard";
 import EditFlashcards from "../EditFlashcards/EditFlashcards";
 import ButtonPrimary from "../../../shared/ui/components/ButtonPrimary";
+import { MyFlashcardSet } from "../../../shared/types/typesMyFlashcardSet";
+import { useEditModal } from "./hooks/useEditModal";
+import { useFlashcardSet } from "./hooks/useFlashcardSet";
+import { useFlashcardNavigation } from "./hooks/useFlashcardNavigation";
 
+// Main component for displaying a flashcard set
 export default function FlashcardSet() {
+  const { setId } = useParams();
+  const { flashcards, title, setFlashcards, setTitle } = useFlashcardSet(setId);
+  const { currentIndex, isFlipped, handleFlip, handleNext, handlePrevious } =
+    useFlashcardNavigation(flashcards);
+  const { isEditOpen, currentSet, openEditModal, closeEditModal } =
+    useEditModal(setId, title, flashcards);
+
   const navigate = useNavigate();
-  const { isFlipped, handleFlip } = useFlipMyFlashcard();
-  const { title, flashcards } = useFlashcardSetInput();
-  const { currentIndex, handleNext, handlePrevious } =
-    useMyFlashcardNavigation(flashcards);
-  const {
-    currentSet,
-    isEditOpen,
-    openEditModal,
-    closeEditModal,
-    updateFlashcardSet,
-  } = useEditModal();
+
+  // Function to update the flashcard set in localStorage
+  const updateFlashcardSet = (updatedSet: MyFlashcardSet) => {
+    const savedSets = JSON.parse(localStorage.getItem("flashcardSets") || "[]");
+    const updatedSets = savedSets.map((set: MyFlashcardSet) =>
+      set.id === updatedSet.id ? updatedSet : set
+    );
+    localStorage.setItem("flashcardSets", JSON.stringify(updatedSets));
+    setFlashcards(updatedSet.flashcards);
+    setTitle(updatedSet.title);
+  };
+
   return (
     <>
       <SimpleGrid spacing={8} maxW="800px" mx="auto" p={6}>

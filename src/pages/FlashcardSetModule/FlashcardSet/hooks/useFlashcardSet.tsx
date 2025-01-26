@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
-import { Flashcard } from "../../../../shared/types/typesFlashcard";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { MyFlashcardSet } from "../../../../shared/types/typesMyFlashcardSet";
+import { Flashcard } from "../../../../shared/types/typesFlashcard";
 
-export default function useFetchMyFlashcard() {
-  const { setId } = useParams();
+export function useFlashcardSet(setId: string | undefined) {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
 
   useEffect(() => {
@@ -20,13 +17,5 @@ export default function useFetchMyFlashcard() {
     }
   }, [setId]);
 
-  return {
-    setId,
-    title,
-    setTitle,
-    description,
-    setDescription,
-    flashcards,
-    setFlashcards,
-  };
+  return { flashcards, title, setFlashcards, setTitle };
 }
