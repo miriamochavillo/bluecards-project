@@ -8,17 +8,12 @@ import {
   CardBody,
   CardFooter,
   Text,
-  IconButton,
-  Popover,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
-  PopoverTrigger,
 } from "@chakra-ui/react";
-import { FaEye, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { MyFlashcardSet } from "../../shared/types/typesMyFlashcardSet";
+import ViewButton from "../../shared/ui/components/ViewButton";
+import FavoriteButton from "../../shared/ui/components/FavoriteButton";
 
 export default function Favorites() {
   const navigate = useNavigate();
@@ -78,7 +73,7 @@ export default function Favorites() {
                     {set.title}
                   </Heading>
                   <Spacer />
-                  <IconButton
+                  {/* <IconButton
                     icon={<FaHeart />}
                     aria-label="Toggle Favorite"
                     size="sm"
@@ -88,30 +83,9 @@ export default function Favorites() {
                     _hover={{
                       bg: "transparent",
                     }}
-                  />
-                  <Popover trigger="hover" placement="bottom-start">
-                    <PopoverTrigger>
-                      <IconButton
-                        icon={<FaEye />}
-                        size="sm"
-                        color="white"
-                        bg="transparent"
-                        aria-label="View"
-                        rounded="full"
-                        onClick={() => navigate(`/my-flashcards/${set.id}`)}
-                        _hover={{
-                          bg: "blue.400",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </PopoverTrigger>
-                    <PopoverContent width="auto" alignContent="center">
-                      <PopoverArrow />
-                      <PopoverBody fontSize="sm" color="blue.500">
-                        View
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Popover>
+                  /> */}
+                  <FavoriteButton set={set} toggleFavorite={toggleFavorite} />
+                  <ViewButton setId={set.id} />
                 </HStack>
               </CardHeader>
               <CardBody>

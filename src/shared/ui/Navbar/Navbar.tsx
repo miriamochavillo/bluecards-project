@@ -25,7 +25,7 @@ export default function Navbar() {
         cursor="pointer"
       />
       <Heading as="h1" color="white">
-        BlueCards
+        John Feliz
       </Heading>
 
       <Spacer />

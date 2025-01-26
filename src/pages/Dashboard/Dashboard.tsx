@@ -24,6 +24,7 @@ import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 import { useMyFlashcards } from "./hooks/useMyFlashcards";
 import { usePopularFlashcards } from "./hooks/usePopularFlashcards";
 import { PopularFlashcard } from "../../shared/types/typesPopularFlashcard";
+import ViewButton from "../../shared/ui/components/ViewButton";
 
 export default function Dashboard() {
   const { latestFlashcardSets } = useMyFlashcards();
@@ -136,29 +137,7 @@ export default function Dashboard() {
                     {set.title}
                   </Heading>
                   <Spacer />
-                  <Popover trigger="hover" placement="bottom-start">
-                    <PopoverTrigger>
-                      <IconButton
-                        icon={<FaEye />}
-                        size="sm"
-                        color="white"
-                        bg="transparent"
-                        aria-label="View"
-                        rounded="full"
-                        onClick={() => navigate(`/my-flashcards/${set.id}`)}
-                        _hover={{
-                          bg: "blue.400",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </PopoverTrigger>
-                    <PopoverContent width="auto" alignContent="center">
-                      <PopoverArrow />
-                      <PopoverBody fontSize="sm" color="blue.500">
-                        View
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Popover>
+                  <ViewButton setId={set.id} />
                 </HStack>
               </CardHeader>
               <CardBody>
