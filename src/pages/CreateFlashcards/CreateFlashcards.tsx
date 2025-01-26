@@ -147,24 +147,24 @@ export default function CreateFlashcards() {
                 </FormControl>
                 <FormControl
                   isRequired
-                  isInvalid={isSubmitted && !flashcard.answer.trim()}
+                  isInvalid={isSubmitted && !flashcard.term.trim()}
                 >
                   <FormLabel fontSize="sm" fontWeight="bold" color="blue.800">
-                    Answer
+                    Term
                   </FormLabel>
                   <Input
                     type="text"
-                    placeholder="Enter the answer"
-                    value={flashcard.answer}
+                    placeholder="Enter the term"
+                    value={flashcard.term}
                     onChange={(e) =>
                       handleFlashcardChange({
                         index,
-                        field: "answer",
+                        field: "term",
                         value: e.target.value,
                       })
                     }
                   />
-                  <FormErrorMessage>Answer is required.</FormErrorMessage>
+                  <FormErrorMessage>Term is required.</FormErrorMessage>
                 </FormControl>
               </HStack>
             </Box>

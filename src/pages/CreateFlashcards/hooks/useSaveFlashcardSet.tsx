@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 export const useSaveFlashcardSet = (
   title: string,
   description: string,
-  flashcards: { definition: string; answer: string }[]
+  flashcards: { definition: string; term: string }[]
 ) => {
   const flashcardSetId = uuidv4();
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -17,7 +17,7 @@ export const useSaveFlashcardSet = (
     setIsSubmitted(true);
     if (
       !title.trim() ||
-      flashcards.some((f) => !f.definition.trim() || !f.answer.trim())
+      flashcards.some((f) => !f.definition.trim() || !f.term.trim())
     ) {
       return;
     }
@@ -27,7 +27,14 @@ export const useSaveFlashcardSet = (
       title,
       description,
       flashcards,
-      lastUpdated: new Date().toLocaleString(),
+      lastUpdated: new Date().toLocaleString(undefined, {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      }),
     };
 
     // Get existing flashcard sets from localStorage

@@ -53,7 +53,7 @@ export default function FlashcardSet() {
               >
                 <Text fontSize="2xl" color={isFlipped ? "white" : "blue.800"}>
                   {isFlipped
-                    ? flashcards[currentIndex].answer
+                    ? flashcards[currentIndex].term
                     : flashcards[currentIndex].definition}
                 </Text>
               </CardBody>

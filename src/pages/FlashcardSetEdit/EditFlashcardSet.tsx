@@ -131,31 +131,25 @@ export default function EditFlashcardSet({
                       </FormControl>
                       <FormControl
                         isRequired
-                        isInvalid={!flashcard.answer.trim()}
+                        isInvalid={!flashcard.term.trim()}
                       >
                         <FormLabel
                           fontSize="sm"
                           fontWeight="bold"
                           color="blue.800"
                         >
-                          Answer
+                          Term
                         </FormLabel>
                         <Input
                           type="text"
-                          placeholder="Enter the answer"
-                          value={flashcard.answer}
+                          placeholder="Enter the term"
+                          value={flashcard.term}
                           onChange={(e) =>
-                            handleFlashcardChange(
-                              index,
-                              "answer",
-                              e.target.value
-                            )
+                            handleFlashcardChange(index, "term", e.target.value)
                           }
                         />
-                        {!flashcard.answer.trim() && (
-                          <FormErrorMessage>
-                            Answer is required.
-                          </FormErrorMessage>
+                        {!flashcard.term.trim() && (
+                          <FormErrorMessage>Term is required.</FormErrorMessage>
                         )}
                       </FormControl>
                     </HStack>

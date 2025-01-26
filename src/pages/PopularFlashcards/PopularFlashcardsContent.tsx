@@ -9,13 +9,11 @@ export const popularFlashcardContent = [
     flashcards: [
       {
         definition: "What is the definition of thermodynamics?",
-        answer:
-          "Thermodynamics is the study of energy and its transformations.",
+        term: "Thermodynamics is the study of energy and its transformations.",
       },
       {
         definition: "What is the definition of thermodynamics?",
-        answer:
-          "Thermodynamics is the study of energy and its transformations.",
+        term: "Thermodynamics is the study of energy and its transformations.",
       },
     ],
   },
@@ -29,13 +27,11 @@ export const popularFlashcardContent = [
     flashcards: [
       {
         definition: "What is material science?",
-        answer:
-          "Material science is the study of the properties and applications of materials of construction or manufacture (such as ceramics, metals, polymers, and composites).",
+        term: "Material science is the study of the properties and applications of materials of construction or manufacture (such as ceramics, metals, polymers, and composites).",
       },
       {
         definition: "What are polymers?",
-        answer:
-          "Polymers are large molecules composed of repeated subunits, known for their elasticity and plasticity.",
+        term: "Polymers are large molecules composed of repeated subunits, known for their elasticity and plasticity.",
       },
     ],
   },
@@ -49,13 +45,11 @@ export const popularFlashcardContent = [
     flashcards: [
       {
         definition: "What is quantum mechanics?",
-        answer:
-          "Quantum mechanics is a fundamental theory in physics that provides a description of the physical properties of nature at the scale of atoms and subatomic particles.",
+        term: "Quantum mechanics is a fundamental theory in physics that provides a description of the physical properties of nature at the scale of atoms and subatomic particles.",
       },
       {
         definition: "What is the uncertainty principle?",
-        answer:
-          "The uncertainty principle is a fundamental concept in quantum mechanics stating that the position and momentum of a particle cannot both be precisely determined at the same time.",
+        term: "The uncertainty principle is a fundamental concept in quantum mechanics stating that the position and momentum of a particle cannot both be precisely determined at the same time.",
       },
     ],
   },
@@ -69,13 +63,11 @@ export const popularFlashcardContent = [
     flashcards: [
       {
         definition: "What is basic math?",
-        answer:
-          "Basic math includes arithmetic operations like addition, subtraction, multiplication, and division.",
+        term: "Basic math includes arithmetic operations like addition, subtraction, multiplication, and division.",
       },
       {
         definition: "What is a fraction?",
-        answer:
-          "A fraction represents a part of a whole or, more generally, any number of equal parts.",
+        term: "A fraction represents a part of a whole or, more generally, any number of equal parts.",
       },
     ],
   },
@@ -89,13 +81,11 @@ export const popularFlashcardContent = [
     flashcards: [
       {
         definition: "What is world history?",
-        answer:
-          "World history is the field of historical study that examines history from a global perspective.",
+        term: "World history is the field of historical study that examines history from a global perspective.",
       },
       {
         definition: "What was the Renaissance?",
-        answer:
-          "The Renaissance was a period in European history marking the transition from the Middle Ages to modernity, characterized by an interest in classical scholarship and values.",
+        term: "The Renaissance was a period in European history marking the transition from the Middle Ages to modernity, characterized by an interest in classical scholarship and values.",
       },
     ],
   },
@@ -109,13 +99,11 @@ export const popularFlashcardContent = [
     flashcards: [
       {
         definition: "What is English grammar?",
-        answer:
-          "English grammar is the set of structural rules governing the composition of clauses, phrases, and words in the English language.",
+        term: "English grammar is the set of structural rules governing the composition of clauses, phrases, and words in the English language.",
       },
       {
         definition: "What is a noun?",
-        answer:
-          "A noun is a word that functions as the name of a specific object or set of objects, such as living creatures, places, actions, qualities, states of existence, or ideas.",
+        term: "A noun is a word that functions as the name of a specific object or set of objects, such as living creatures, places, actions, qualities, states of existence, or ideas.",
       },
     ],
   },
@@ -128,13 +116,11 @@ export const popularFlashcardContent = [
     flashcards: [
       {
         definition: "What is advanced mathematics?",
-        answer:
-          "Advanced mathematics includes complex topics such as calculus, linear algebra, and differential equations.",
+        term: "Advanced mathematics includes complex topics such as calculus, linear algebra, and differential equations.",
       },
       {
         definition: "What is calculus?",
-        answer:
-          "Calculus is a branch of mathematics that studies continuous change, through derivatives and integrals.",
+        term: "Calculus is a branch of mathematics that studies continuous change, through derivatives and integrals.",
       },
     ],
   },
@@ -148,13 +134,11 @@ export const popularFlashcardContent = [
     flashcards: [
       {
         definition: "What is electronics?",
-        answer:
-          "Electronics is the branch of physics and technology concerned with the design of circuits using transistors and microchips, and with the behavior and movement of electrons in a semiconductor, conductor, vacuum, or gas.",
+        term: "Electronics is the branch of physics and technology concerned with the design of circuits using transistors and microchips, and with the behavior and movement of electrons in a semiconductor, conductor, vacuum, or gas.",
       },
       {
         definition: "What is a transistor?",
-        answer:
-          "A transistor is a semiconductor device used to amplify or switch electronic signals and electrical power.",
+        term: "A transistor is a semiconductor device used to amplify or switch electronic signals and electrical power.",
       },
     ],
   },
@@ -168,13 +152,11 @@ export const popularFlashcardContent = [
     flashcards: [
       {
         definition: "What is microelectronics?",
-        answer:
-          "Microelectronics is a subfield of electronics that deals with very small and microscopic electronic components.",
+        term: "Microelectronics is a subfield of electronics that deals with very small and microscopic electronic components.",
       },
       {
         definition: "What is an integrated circuit?",
-        answer:
-          "An integrated circuit is a set of electronic circuits on one small flat piece (or 'chip') of semiconductor material, normally silicon.",
+        term: "An integrated circuit is a set of electronic circuits on one small flat piece (or 'chip') of semiconductor material, normally silicon.",
       },
     ],
   },
@@ -188,13 +170,11 @@ export const popularFlashcardContent = [
     flashcards: [
       {
         definition: "What is software development?",
-        answer:
-          "Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.",
+        term: "Software development is the process of conceiving, specifying, designing, programming, documenting, testing, and bug fixing involved in creating and maintaining applications, frameworks, or other software components.",
       },
       {
         definition: "What is agile methodology?",
-        answer:
-          "Agile methodology is a practice that promotes continuous iteration of development and testing throughout the software development lifecycle of the project.",
+        term: "Agile methodology is a practice that promotes continuous iteration of development and testing throughout the software development lifecycle of the project.",
       },
     ],
   },
@@ -208,13 +188,11 @@ export const popularFlashcardContent = [
     flashcards: [
       {
         definition: "What is a differential equation?",
-        answer:
-          "A differential equation is a mathematical equation that relates some function with its derivatives.",
+        term: "A differential equation is a mathematical equation that relates some function with its derivatives.",
       },
       {
         definition: "What is a partial differential equation?",
-        answer:
-          "A partial differential equation is a differential equation that contains unknown multivariable functions and their partial derivatives.",
+        term: "A partial differential equation is a differential equation that contains unknown multivariable functions and their partial derivatives.",
       },
     ],
   },
@@ -228,13 +206,11 @@ export const popularFlashcardContent = [
     flashcards: [
       {
         definition: "What is trigonometry?",
-        answer:
-          "Trigonometry is a branch of mathematics that studies relationships involving lengths and angles of triangles.",
+        term: "Trigonometry is a branch of mathematics that studies relationships involving lengths and angles of triangles.",
       },
       {
         definition: "What is the sine function?",
-        answer:
-          "The sine function is a trigonometric function of an angle, defined as the ratio of the length of the opposite side to the hypotenuse in a right-angled triangle.",
+        term: "The sine function is a trigonometric function of an angle, defined as the ratio of the length of the opposite side to the hypotenuse in a right-angled triangle.",
       },
     ],
   },

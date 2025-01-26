@@ -23,7 +23,7 @@ export function useAddRemoveFlashcard(
   const addFlashcard = () => {
     setCurrentSet((prevSet) => ({
       ...prevSet,
-      flashcards: [...prevSet.flashcards, { definition: "", answer: "" }],
+      flashcards: [...prevSet.flashcards, { definition: "", term: "" }],
     }));
   };
 

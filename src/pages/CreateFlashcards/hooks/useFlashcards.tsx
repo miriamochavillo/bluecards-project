@@ -3,17 +3,17 @@ import { Flashcard } from "../../../shared/types/typesFlashcard";
 
 type Props = {
   index: number;
-  field: "definition" | "answer";
+  field: "definition" | "term";
   value: string;
 };
 
 export const useFlashcards = () => {
-  // State to store the list of flashcards, each with a definition and answer
+  // State to store the list of flashcards, each with a definition and term
   const [flashcards, setFlashcards] = useState<Flashcard[]>([
-    { definition: "", answer: "" },
+    { definition: "", term: "" },
   ]);
 
-  // Modifies the specific flashcard's definition or answer
+  // Modifies the specific flashcard's definition or term
   const handleFlashcardChange = ({ index, field, value }: Props) => {
     if (index < 0 || index >= flashcards.length) return;
     const newFlashcards = [...flashcards];
@@ -23,7 +23,7 @@ export const useFlashcards = () => {
 
   // Add a new flashcard to the list
   const addFlashcard = () => {
-    setFlashcards([...flashcards, { definition: "", answer: "" }]);
+    setFlashcards([...flashcards, { definition: "", term: "" }]);
   };
 
   // Remove a flashcard from the list by index

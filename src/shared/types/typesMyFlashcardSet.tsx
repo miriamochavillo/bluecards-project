@@ -5,7 +5,7 @@ export type MyFlashcardSet = {
   lastUpdated: string;
   flashcards: {
     definition: string;
-    answer: string;
+    term: string;
   }[];
   favorite: boolean;
 };

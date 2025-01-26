@@ -6,7 +6,7 @@ export function useValidation(
 ) {
   const areFlashcardsValid = currentSet.flashcards.every(
     (flashcard) =>
-      flashcard.definition.trim() !== "" && flashcard.answer.trim() !== ""
+      flashcard.definition.trim() !== "" && flashcard.term.trim() !== ""
   );
 
   const handleSave = () => {
