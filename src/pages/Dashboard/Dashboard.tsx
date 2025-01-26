@@ -20,11 +20,11 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
-import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 import { useMyFlashcards } from "./hooks/useMyFlashcards";
 import { usePopularFlashcards } from "./hooks/usePopularFlashcards";
 import { PopularFlashcard } from "../../shared/types/typesPopularFlashcard";
 import ViewButton from "../../shared/ui/components/ViewButton";
+import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 
 export default function Dashboard() {
   const { latestFlashcardSets } = useMyFlashcards();
