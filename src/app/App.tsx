@@ -25,6 +25,11 @@ const router = createBrowserRouter(
       <Route path="/flashcards" element={<FlashcardMenu />} />
       <Route path="/create-flashcards" element={<CreateFlashcards />} />
       <Route path="/my-flashcards" element={<MyFlashcards />} />
+      <Route path="/popular-flashcards" element={<PopularFlashcards />} />
+      <Route
+        path="/popular-flashcards/:setId"
+        element={<PopularFlashcardSet />}
+      />
       <Route path="/flashcard-set" element={<FlashcardSet />} />
       <Route path="/my-flashcards/:setId" element={<FlashcardSet />} />
       <Route path="/favorites" element={<Favorites />} />

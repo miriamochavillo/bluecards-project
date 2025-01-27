@@ -61,7 +61,7 @@ export default function FlashcardSet() {
               as={IconButton}
               size="sm"
               icon={<HamburgerIcon />}
-              colorScheme="teal"
+              colorScheme="blue"
               aria-label="Options"
             />
             <MenuList sx={{ fontSize: "sm" }}>
