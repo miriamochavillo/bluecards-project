@@ -59,7 +59,7 @@ export default function SearchBar() {
                   _hover={{ bg: "blue.50", cursor: "pointer" }}
                   onClick={() => {
                     handleFlashcardClick(flashcard);
-                    clearSearch(); // Clear the search bar
+                    clearSearch();
                   }}
                 >
                   {flashcard.title}

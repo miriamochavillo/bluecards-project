@@ -51,6 +51,10 @@ export const popularFlashcardContent = [
         definition: "What is the uncertainty principle?",
         term: "The uncertainty principle is a fundamental concept in quantum mechanics stating that the position and momentum of a particle cannot both be precisely determined at the same time.",
       },
+      {
+        definition: "What is the uncertainty principle?",
+        term: "The uncertainty principle is a fundamental concept in quantum mechanics stating that the position and momentum of a particle cannot both be precisely determined at the same time.",
+      },
     ],
   },
   {
