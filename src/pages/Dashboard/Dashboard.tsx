@@ -130,8 +130,6 @@ export default function Dashboard() {
             <Card
               key={set.id}
               bg="blue.50"
-              border="2px solid"
-              borderColor="blue.200"
               borderRadius="lg"
               boxShadow="lg"
               transition="all 0.3s ease-in-out"
@@ -163,13 +161,9 @@ export default function Dashboard() {
             </Card>
           ))}
         </SimpleGrid>
-        <Button
-          size="sm"
-          colorScheme="blue"
-          onClick={() => navigate("/my-flashcards")}
-        >
-          View All
-        </Button>
+        <ButtonPrimary onClick={() => navigate("/my-flashcards")}>
+          View all
+        </ButtonPrimary>
       </Box>
     </SimpleGrid>
   );

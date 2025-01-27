@@ -1,6 +1,5 @@
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -10,7 +9,6 @@ import {
   IconButton,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
   Spacer,
@@ -81,9 +79,7 @@ export default function MyFlashcards() {
             {flashcardSets.map((set) => (
               <Card
                 key={set.id}
-                bg="white"
-                border="2px solid"
-                borderColor="blue.200"
+                bg="blue.50"
                 borderRadius="lg"
                 boxShadow="lg"
                 transition="all 0.3s ease-in-out"
@@ -93,35 +89,52 @@ export default function MyFlashcards() {
                   "& > div:first-of-type": { bg: "blue.700" },
                 }}
               >
-                <CardHeader>
+                <CardHeader bg="blue.500" borderTopRadius="lg">
                   <HStack spacing={3}>
-                    <Heading fontSize="lg" color="blue.700">
+                    <Heading
+                      fontSize="lg"
+                      color="white"
+                      cursor="pointer"
+                      onClick={() => navigate(`/my-flashcards/${set.id}`)}
+                      _hover={{ textDecoration: "underline", color: "white" }}
+                    >
                       {set.title}
                     </Heading>
                     <Spacer />
                     <FavoriteButton set={set} toggleFavorite={toggleFavorite} />
                     <HStack spacing={2}>
-                      <Button
-                        size="sm"
-                        colorScheme="blue"
-                        onClick={() => navigate(`/my-flashcards/${set.id}`)}
-                      >
-                        View
-                      </Button>
                       <Menu placement="bottom-end">
                         <MenuButton
                           as={IconButton}
                           size="sm"
                           icon={<SlOptionsVertical />}
-                          colorScheme="teal"
+                          colorScheme="blue"
                           aria-label="Options"
+                          bg="transparent"
                         />
-                        <MenuList>
-                          <MenuItem onClick={() => openEditModal(set)}>
+                        <MenuList
+                          sx={{
+                            fontSize: "sm",
+                            color: "blue.700",
+                          }}
+                          minWidth="100px"
+                        >
+                          <MenuItem
+                            icon={<FaEye />}
+                            onClick={() => navigate(`/my-flashcards/${set.id}`)}
+                          >
+                            View
+                          </MenuItem>
+                          <MenuItem
+                            icon={<FaEdit />}
+                            onClick={() => openEditModal(set)}
+                          >
                             Edit
                           </MenuItem>
-                          <MenuDivider />
-                          <MenuItem onClick={() => deleteFlashcardSet(set.id)}>
+                          <MenuItem
+                            icon={<DeleteIcon />}
+                            onClick={() => deleteFlashcardSet(set.id)}
+                          >
                             Delete
                           </MenuItem>
                         </MenuList>
