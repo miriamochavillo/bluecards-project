@@ -1,4 +1,3 @@
-import { CheckIcon, SearchIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Button,
@@ -6,28 +5,17 @@ import {
   Heading,
   HStack,
   Spacer,
-  Text,
-  useToast,
-  AvatarBadge,
   Image,
   InputGroup,
   Input,
   InputLeftElement,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../SearchBar/SearchBar";
+import { useLogOutToast } from "./hooks/useLogOutToast";
 
 export default function Navbar() {
-  const toast = useToast();
-  const showToast = () => {
-    toast({
-      title: "Logged out",
-      description: "You have been logged out successfully",
-      duration: 1000,
-      isClosable: true,
-      position: "top",
-      icon: <CheckIcon />,
-    });
-  };
+  const { showToast } = useLogOutToast();
   const navigate = useNavigate();
   return (
     <Flex as="nav" alignItems="center" mb="20px" gap="10px">
@@ -63,11 +51,13 @@ export default function Navbar() {
       <Spacer />
 
       <HStack spacing="20px">
-        <Avatar name="Miriam" src="/src/shared/assets/Miriam.jpg" bg="blue.700">
-          <AvatarBadge bg="blue.500" w="1.3em">
-            <Text fontSize="xs">10</Text>
-          </AvatarBadge>
-        </Avatar>
+        <Avatar
+          name="Miriam"
+          src="/src/shared/assets/Miriam.jpg"
+          bg="blue.700"
+          onClick={() => navigate("/profile")}
+          cursor="pointer"
+        ></Avatar>
         <Button colorScheme="blue" onClick={showToast}>
           Logout
         </Button>

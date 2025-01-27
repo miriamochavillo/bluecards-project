@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -13,97 +12,25 @@ import {
   IconButton,
   Divider,
   Flex,
-  useToast,
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import ButtonPrimary from "../shared/ui/components/ButtonPrimary";
+import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
+import { useSaveFlashcardSet } from "./hooks/useSaveFlashcardSet";
+import { useTitle } from "./hooks/useTitle";
+import { useDescription } from "./hooks/useDescription";
+import { useFlashcards } from "./hooks/useFlashcards";
 
 export default function CreateFlashcards() {
-  const flashcardSetId = uuidv4();
-
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [flashcards, setFlashcards] = useState([
-    { definition: "", answer: "" },
-  ]);
-
-  const navigate = useNavigate();
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const toast = useToast();
-
-  // Handlers for input changes
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setTitle(e.target.value);
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-    setDescription(e.target.value);
-
-  // Update flashcard content based on index and field
-  const handleFlashcardChange = (
-    index: number,
-    field: keyof (typeof flashcards)[0],
-    value: string
-  ) => {
-    if (index < 0 || index >= flashcards.length) return;
-    const newFlashcards = [...flashcards];
-    newFlashcards[index][field] = value;
-    setFlashcards(newFlashcards);
-  };
-
-  // Add a new flashcard to the list
-  const addFlashcard = () => {
-    setFlashcards([...flashcards, { definition: "", answer: "" }]);
-  };
-
-  // Remove a flashcard from the list by index
-  const removeFlashcard = (index: number) => {
-    setFlashcards(flashcards.filter((_, i) => i !== index));
-  };
-
-  // Save the flashcard set to localStorage and navigate to another page
-  const saveFlashcardSet = () => {
-    setIsSubmitted(true);
-    if (
-      !title.trim() ||
-      flashcards.some((f) => !f.definition.trim() || !f.answer.trim())
-    ) {
-      return;
-    }
-
-    const newFlashcardSet = {
-      id: flashcardSetId,
-      title,
-      description,
-      flashcards,
-      lastUpdated: new Date().toLocaleString(),
-    };
-
-    // Get existing flashcard sets from localStorage
-    const existingSets = JSON.parse(
-      localStorage.getItem("flashcardSets") || "[]"
-    );
-
-    // Save the new set
-    localStorage.setItem(
-      "flashcardSets",
-      JSON.stringify([...existingSets, newFlashcardSet])
-    );
-
-    // Show success toast notification
-    toast({
-      title: "Success",
-      description: `"${title}" card set was saved successfully.`,
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-      position: "top",
-    });
-
-    // Navigate to the "my-flashcards" page
-    navigate("/my-flashcards");
-  };
+  const { title, handleTitleChange } = useTitle();
+  const { description, handleDescriptionChange } = useDescription();
+  const { flashcards, handleFlashcardChange, addFlashcard, removeFlashcard } =
+    useFlashcards();
+  const { saveFlashcardSet, isSubmitted } = useSaveFlashcardSet(
+    title,
+    description,
+    flashcards
+  );
 
   return (
     <SimpleGrid spacing={8} maxW="1200px" mx="auto" p={6}>
@@ -209,27 +136,35 @@ export default function CreateFlashcards() {
                     placeholder="Enter the definition"
                     value={flashcard.definition}
                     onChange={(e) =>
-                      handleFlashcardChange(index, "definition", e.target.value)
+                      handleFlashcardChange({
+                        index,
+                        field: "definition",
+                        value: e.target.value,
+                      })
                     }
                   />
                   <FormErrorMessage>Definition is required.</FormErrorMessage>
                 </FormControl>
                 <FormControl
                   isRequired
-                  isInvalid={isSubmitted && !flashcard.answer.trim()}
+                  isInvalid={isSubmitted && !flashcard.term.trim()}
                 >
                   <FormLabel fontSize="sm" fontWeight="bold" color="blue.800">
-                    Answer
+                    Term
                   </FormLabel>
                   <Input
                     type="text"
-                    placeholder="Enter the answer"
-                    value={flashcard.answer}
+                    placeholder="Enter the term"
+                    value={flashcard.term}
                     onChange={(e) =>
-                      handleFlashcardChange(index, "answer", e.target.value)
+                      handleFlashcardChange({
+                        index,
+                        field: "term",
+                        value: e.target.value,
+                      })
                     }
                   />
-                  <FormErrorMessage>Answer is required.</FormErrorMessage>
+                  <FormErrorMessage>Term is required.</FormErrorMessage>
                 </FormControl>
               </HStack>
             </Box>
