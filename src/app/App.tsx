@@ -10,10 +10,12 @@ import RootLayout from "../shared/ui/RootLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../pages/Profile";
 import FlashcardMenu from "../pages/FlashcardMenu";
-import CreateFlashcards from "../pages/CreateFlashcards";
-import MyFlashcards from "../pages/MyFlashcard/MyFlashcards";
+import CreateFlashcards from "../pages/CreateFlashcards/CreateFlashcards";
+import MyFlashcards from "../pages/MyFlashcards/MyFlashcards";
 import FlashcardSet from "../pages/FlashcardSet/FlashcardSet";
-
+import PopularFlashcards from "../pages/PopularFlashcards/PopularFlashcards";
+import PopularFlashcardSet from "../pages/PopularFlashcards/PopularFlashcardSet";
+import Favorites from "../pages/Favorites/Favorites";
 // router and routes
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +27,7 @@ const router = createBrowserRouter(
       <Route path="/my-flashcards" element={<MyFlashcards />} />
       <Route path="/flashcard-set" element={<FlashcardSet />} />
       <Route path="/my-flashcards/:setId" element={<FlashcardSet />} />
+      <Route path="/favorites" element={<Favorites />} />
     </Route>
   )
 );

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
   Button,
   Card,
@@ -21,57 +20,25 @@ import {
   PopoverContent,
   PopoverArrow,
   PopoverBody,
-  useToast,
 } from "@chakra-ui/react";
 import { SimpleGrid } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { SlOptionsVertical } from "react-icons/sl";
-import EditFlashcardSet from "./EditFlashcardSet";
-
-interface FlashcardSet {
-  id: string;
-  title: string;
-  description: string;
-  lastUpdated: string;
-  flashcards: { definition: string; answer: string }[];
-}
+import { FaEdit, FaEye } from "react-icons/fa";
+import { useEditModalOpen } from "./hooks/useEditModalOpen";
+import { useFlashcardSetManager } from "./hooks/useFlashcardSetManager";
+import { useToggleFavorite } from "./hooks/useToggleFavorite";
+import FavoriteButton from "../../shared/ui/components/FavoriteButton";
+import EditFlashcardSet from "../FlashcardSetEdit/EditFlashcardSet";
 
 export default function MyFlashcards() {
-  const toast = useToast();
   const navigate = useNavigate();
-  const [flashcardSets, setFlashcardSets] = useState<FlashcardSet[]>([]);
-  const [isEditOpen, setIsEditOpen] = useState(false);
-  const [currentSet, setCurrentSet] = useState<FlashcardSet | null>(null);
+  const { isEditOpen, currentSet, openEditModal, closeEditModal } =
+    useEditModalOpen();
+  const { flashcardSets, setFlashcardSets, deleteFlashcardSet } =
+    useFlashcardSetManager();
 
-  useEffect(() => {
-    // Fetch flashcard sets from localStorage
-    const savedSets = JSON.parse(localStorage.getItem("flashcardSets") || "[]");
-    setFlashcardSets(savedSets);
-  }, []);
-
-  const deleteFlashcardSet = (id: string) => {
-    const updatedSets = flashcardSets.filter((set) => set.id !== id);
-    setFlashcardSets(updatedSets);
-    localStorage.setItem("flashcardSets", JSON.stringify(updatedSets));
-    toast({
-      title: "Flashcard set deleted.",
-      description: "The flashcard set has been successfully removed.",
-      status: "error",
-      duration: 5000,
-      isClosable: true,
-      position: "top",
-    });
-  };
-
-  const openEditModal = (set: FlashcardSet) => {
-    setCurrentSet(set);
-    setIsEditOpen(true);
-  };
-
-  const closeEditModal = () => {
-    setCurrentSet(null);
-    setIsEditOpen(false);
-  };
+  const toggleFavorite = useToggleFavorite(setFlashcardSets);
 
   return (
     <>
@@ -123,7 +90,7 @@ export default function MyFlashcards() {
                 _hover={{
                   transform: "scale(1.05)",
                   boxShadow: "2xl",
-                  bg: "blue.100",
+                  "& > div:first-of-type": { bg: "blue.700" },
                 }}
               >
                 <CardHeader>
@@ -132,6 +99,7 @@ export default function MyFlashcards() {
                       {set.title}
                     </Heading>
                     <Spacer />
+                    <FavoriteButton set={set} toggleFavorite={toggleFavorite} />
                     <HStack spacing={2}>
                       <Button
                         size="sm"

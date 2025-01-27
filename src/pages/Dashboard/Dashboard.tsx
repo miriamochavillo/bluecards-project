@@ -11,33 +11,25 @@ import {
   CardHeader,
   HStack,
   Divider,
+  IconButton,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverBody,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import PopularFlashcards from "./PopularFlashcards.tsx";
-
-interface FlashcardSet {
-  id: string;
-  title: string;
-  description: string;
-  lastUpdated: string;
-  flashcards: { definition: string; answer: string }[];
-}
+import { FaEye } from "react-icons/fa";
+import { useMyFlashcards } from "./hooks/useMyFlashcards";
+import { usePopularFlashcards } from "./hooks/usePopularFlashcards";
+import { PopularFlashcard } from "../../shared/types/typesPopularFlashcard";
+import ViewButton from "../../shared/ui/components/ViewButton";
+import ButtonPrimary from "../../shared/ui/components/ButtonPrimary";
 
 export default function Dashboard() {
+  const { latestFlashcardSets } = useMyFlashcards();
+  const { sortedPopularFlashcards } = usePopularFlashcards();
   const navigate = useNavigate();
-  const [latestFlashcardSets, setLatestFlashcardSets] = useState<
-    FlashcardSet[]
-  >([]);
-
-  useEffect(() => {
-    const savedSets = JSON.parse(localStorage.getItem("flashcardSets") || "[]");
-    const sortedSets = savedSets.sort(
-      (a: FlashcardSet, b: FlashcardSet) =>
-        new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime()
-    );
-    setLatestFlashcardSets(sortedSets.slice(0, 3));
-  }, []);
 
   return (
     <SimpleGrid spacing={10} maxW="1200px" mx="auto" p={6}>
@@ -54,7 +46,78 @@ export default function Dashboard() {
         <Text color="blue.500">Create your own flash cards</Text>
       </Button>
 
-      <PopularFlashcards />
+      <Box>
+        <Heading as="h3" fontSize="24px" color="blue.600" pb={6}>
+          Popular Flashcards
+        </Heading>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={6} pb={6}>
+          {sortedPopularFlashcards.map((popularFlashcard: PopularFlashcard) => (
+            <Card
+              key={popularFlashcard.id}
+              bg="blue.50"
+              borderRadius="lg"
+              boxShadow="lg"
+              transition="all 0.3s ease-in-out"
+              _hover={{
+                transform: "scale(1.05)",
+                boxShadow: "2xl",
+                "& > div:first-of-type": { bg: "blue.500" },
+              }}
+            >
+              <CardHeader bg="blue.700" borderTopRadius="lg">
+                <HStack>
+                  <Heading fontSize="lg" color="white">
+                    {popularFlashcard.title}
+                  </Heading>
+                  <Spacer />
+                  <Popover trigger="hover" placement="bottom-start">
+                    <PopoverTrigger>
+                      <IconButton
+                        icon={<FaEye />}
+                        size="md"
+                        color="white"
+                        bg="transparent"
+                        aria-label="View"
+                        rounded="full"
+                        onClick={() =>
+                          navigate(`/popular-flashcards/${popularFlashcard.id}`)
+                        }
+                        _hover={{
+                          bg: "blue.600",
+                          cursor: "pointer",
+                        }}
+                      />
+                    </PopoverTrigger>
+                    <PopoverContent width="auto" alignContent="center">
+                      <PopoverArrow />
+                      <PopoverBody fontSize="sm" color="blue.500">
+                        View
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                </HStack>
+              </CardHeader>
+              <CardBody>
+                <Text fontSize="sm" color="gray.600">
+                  {popularFlashcard.description}
+                </Text>
+              </CardBody>
+              <CardFooter>
+                <Text fontSize="xs" color="gray.500">
+                  Last updated: {popularFlashcard.lastUpdated}
+                </Text>
+                <Spacer />
+                <Text fontSize="xs" color="gray.500">
+                  Views: {popularFlashcard.views}
+                </Text>
+              </CardFooter>
+            </Card>
+          ))}
+        </SimpleGrid>
+        <ButtonPrimary onClick={() => navigate("/popular-flashcards")}>
+          View All
+        </ButtonPrimary>
+      </Box>
 
       <Divider />
 
@@ -72,23 +135,19 @@ export default function Dashboard() {
               borderRadius="lg"
               boxShadow="lg"
               transition="all 0.3s ease-in-out"
-              _hover={{ transform: "scale(1.05)", boxShadow: "2xl" }}
+              _hover={{
+                transform: "scale(1.05)",
+                boxShadow: "2xl",
+                "& > div:first-of-type": { bg: "blue.700" },
+              }}
             >
-              <CardHeader>
-                <HStack spacing={3}>
-                  <Heading fontSize="lg" color="blue.700">
+              <CardHeader bg="blue.500" borderTopRadius="lg">
+                <HStack>
+                  <Heading fontSize="lg" color="white">
                     {set.title}
                   </Heading>
                   <Spacer />
-                  <HStack spacing={2}>
-                    <Button
-                      size="sm"
-                      colorScheme="blue"
-                      onClick={() => navigate(`/my-flashcards/${set.id}`)}
-                    >
-                      View
-                    </Button>
-                  </HStack>
+                  <ViewButton setId={set.id} />
                 </HStack>
               </CardHeader>
               <CardBody>
